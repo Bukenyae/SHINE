@@ -1484,7 +1484,7 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
 
 @media (max-width: 640px) {
   .hero-headline-block {
-    margin-top: -66vh;
+    margin-top: -52vh;
   }
 
   .hero-bottom-statement {
@@ -1493,7 +1493,12 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
   }
 
   .hero-chip-row {
-    bottom: 80px;
+    bottom: 58px;
+  }
+
+  .service-chip {
+    font-size: 20px;
+    padding: 0.4rem 0.8rem;
   }
 }
 
