@@ -1,33 +1,69 @@
-## Responsive Design Guardrails
+# AGENTS.md — SHINE (A.E Reborn) Codex Rules
 
-Use this decision rubric for every layout or spacing change:
+## Goal
+You (Codex) are operating on this repo to make safe, reviewable changes and keep `main` deployable.
 
-1. **Mobile-first (phones, up to 640px)**
-   - Design for the smallest screen first.
-   - Ensure no overlaps, readable type, and clear tap targets.
-   - If elements must stack, do it here.
+## Repo assumptions
+- Default branch: `main`
+- Package manager: prefer `pnpm` if `pnpm-lock.yaml` exists; else use `npm`/`yarn` based on lockfile.
+- Runtime: Node.js project (React/Vite likely). If uncertain, inspect `package.json`.
 
-2. **Tablet range (641px–1024px)**
-   - Re-check for overlaps introduced by more horizontal space.
-   - Add spacing or reposition elements to keep hierarchy clear.
-   - Treat this as its own layout, not just “scaled mobile.”
+## Guardrails (must-follow)
+1. **Never commit secrets**
+   - Do NOT commit `.env`, `*.env*`, API keys, tokens, credentials, certificates.
+   - If secrets exist locally, ensure they are gitignored and mention it in output.
 
-3. **Desktop (1025px and up)**
-   - Optimize for visual balance and breathing room.
-   - Use larger imagery and stronger layout structure.
-   - Preserve the mobile/tablet clarity without reintroducing collisions.
+2. **Small, atomic commits**
+   - Each task = minimal set of changes.
+   - Prefer multiple commits over one huge commit.
 
-### Execution Checklist
-- Verify layout at 3 breakpoints: `<=640px`, `641–1024px`, `>=1025px`.
-- If content overlaps at any breakpoint, adjust spacing or positioning for that specific range.
-- Prefer small, targeted media-query fixes over global changes.
+3. **Commit message format**
+   - Use Conventional Commits:
+     - `feat: ...`, `fix: ...`, `chore: ...`, `docs: ...`, `refactor: ...`, `test: ...`
+   - First push / initial sync: `chore: initial commit (AE Reborn)`
 
-This guardrail is required for new UI changes and should be applied to hero sections, CTAs, and key content blocks first.
+4. **Branching**
+   - For non-trivial work: create a branch `codex/<short-task-name>` and open a PR (if PR flow is available).
+   - For the initial push only: push directly to `main`.
 
-## Product Simplicity Principle
+5. **Pre-push checks**
+   - Run the most relevant checks that exist:
+     - `pnpm lint` / `npm run lint` if defined
+     - `pnpm test` / `npm test` if defined
+     - `pnpm build` / `npm run build` if defined
+   - If a command fails, stop and fix; do not push broken builds unless explicitly instructed.
 
-We must design and build with a "less is more" mindset:
-- Favor simplicity and minimalism over visual complexity.
-- Avoid adding unnecessary UI elements or styling flourishes.
-- Continuously refactor to reduce clutter and simplify the user experience.
-- Re-imagine elements when needed to make interactions clearer and calmer.
+## Git automation playbook (what to do when asked to “push to GitHub”)
+When the user asks you to push the local project to the GitHub repo:
+
+1. Confirm you are in the correct directory (repo root).
+2. If not a git repo:
+   - `git init`
+3. Ensure a `.gitignore` exists and includes:
+   - `node_modules/`
+   - `.env*`
+   - `dist/` (if Vite/React build output)
+   - `.DS_Store`
+4. Stage and commit:
+   - `git add -A`
+   - `git commit -m "chore: initial commit (AE Reborn)"`
+5. Ensure `origin` remote matches:
+   - `https://github.com/<USER>/SHINE.git` (or SSH equivalent)
+6. Ensure branch is `main`:
+   - `git branch -M main`
+7. Push:
+   - `git push -u origin main`
+
+### If remote already has commits (README/license)
+If `git push` is rejected due to unrelated history:
+- `git pull origin main --allow-unrelated-histories`
+- Resolve conflicts if any
+- Re-run checks
+- Push again
+
+## Output requirements (what to show the user)
+After completing a task, summarize:
+- What changed (files touched)
+- Commands run (and whether they passed)
+- Git status (`git status -sb`)
+- The commit hash(es) created
