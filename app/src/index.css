@@ -1487,6 +1487,10 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
     margin-top: -52vh;
   }
 
+  .hero-headline-secondary {
+    color: #000000;
+  }
+
   .hero-bottom-statement {
     bottom: 180px;
     font-size: 28px;
@@ -1497,8 +1501,8 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
   }
 
   .service-chip {
-    font-size: 20px;
-    padding: 0.4rem 0.8rem;
+    font-size: 10px;
+    padding: 0.2rem 0.4rem;
   }
 }
 
