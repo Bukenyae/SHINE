@@ -1496,7 +1496,7 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
 
 @media (max-width: 640px) {
   .hero-end-title {
-    font-size: clamp(25.6px, 4.8vw, 57.6px);
+    font-size: clamp(20.48px, 3.84vw, 46.08px);
   }
 
   .hero-headline-block {
