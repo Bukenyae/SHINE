@@ -31,7 +31,10 @@ export function Section04EndToEnd() {
         <div ref={headlineRef} className="hero-headline-block mb-8 lg:mb-10 text-right">
           <h2 className="headline-xl hero-end-title text-[clamp(32px,6vw,72px)]">
             <span className="end-line block hero-headline-secondary">END-TO-END</span>
-            <span className="end-line block hero-headline-secondary">ENERGY DELIVERY</span>
+            <span className="end-line block hero-headline-secondary">
+              <span className="hero-end-energy">ENERGY</span>
+              <span className="hero-end-delivery"> DELIVERY</span>
+            </span>
           </h2>
         </div>
 
