@@ -955,8 +955,9 @@
   }
 
   .about-team-statement-copy .about-team-statement-description {
-    font-size: clamp(1.92rem, 8.32vw, 3.12rem);
-    line-height: 3;
+    font-size: clamp(1.6rem, 6.8vw, 2rem);
+    line-height: 1.5;
+    font-weight: 400;
   }
 
   .about-partners-grid-right {
