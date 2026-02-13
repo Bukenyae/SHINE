@@ -954,6 +954,11 @@
     line-height: 1.5;
   }
 
+  .about-team-statement-copy .about-team-statement-description {
+    font-size: clamp(1.92rem, 8.32vw, 3.12rem);
+    line-height: 3;
+  }
+
   .about-partners-grid-right {
     grid-template-columns: 1fr 1fr;
   }
