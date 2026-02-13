@@ -313,6 +313,15 @@
   margin-bottom: 24px;
 }
 
+.about-content-col .about-hero-wrap {
+  margin-top: 68px;
+}
+
+.about-content-col .about-hero-frame {
+  width: 84%;
+  margin: 0 auto;
+}
+
 .about-hero-frame {
   margin: 0;
   width: 100%;
@@ -442,6 +451,10 @@
   width: 100%;
 }
 
+.about-team-statement-copy .about-subtitle {
+  margin-top: 2.8rem;
+}
+
 .about-subtitle {
   margin-top: 1.4rem;
   font-size: clamp(1.35rem, 1.9vw, 1.6rem);
@@ -455,7 +468,7 @@
 }
 
 .about-partners-right .about-subtitle {
-  text-align: right;
+  text-align: center;
 }
 
 .about-media-section {
@@ -467,6 +480,14 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
+}
+
+.about-timeline-wrap .about-media-grid {
+  grid-template-columns: 1fr;
+}
+
+.about-timeline-wrap .about-media-section .about-subtitle {
+  text-align: center;
 }
 
 .about-media-card {
@@ -734,6 +755,7 @@
   font-weight: 700;
   color: #f4f6fa;
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .about-timeline-wrap {
@@ -903,6 +925,14 @@
     margin-bottom: 16px;
   }
 
+  .about-content-col .about-hero-wrap {
+    margin-top: 50px;
+  }
+
+  .about-content-col .about-hero-frame {
+    width: 100%;
+  }
+
   .about-hero-image {
     height: auto;
   }
@@ -986,6 +1016,14 @@
     margin-bottom: 20px;
   }
 
+  .about-content-col .about-hero-wrap {
+    margin-top: 60px;
+  }
+
+  .about-content-col .about-hero-frame {
+    width: 90%;
+  }
+
   .about-hero-image {
     height: auto;
   }
@@ -1008,7 +1046,7 @@
     grid-template-columns: 1fr;
   }
 
-  .about-media-grid {
+  .about-content-col .about-media-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1063,6 +1101,14 @@
     margin-bottom: 22px;
   }
 
+  .about-content-col .about-hero-wrap {
+    margin-top: 74px;
+  }
+
+  .about-content-col .about-hero-frame {
+    width: 84%;
+  }
+
   .about-hero-image {
     height: auto;
   }
@@ -1087,7 +1133,7 @@
     padding: 24px;
   }
 
-  .about-media-grid {
+  .about-content-col .about-media-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
@@ -1125,6 +1171,15 @@
 
   .about-achievements {
     gap: 12px;
+  }
+}
+
+/* Landscape desktop refinement: reduce team grid footprint and add breathing room */
+@media (min-width: 1025px) and (orientation: landscape) {
+  .about-content-col .about-team-rail .about-team-grid {
+    width: 80%;
+    margin: 0 auto;
+    gap: 18px 20px;
   }
 }
 

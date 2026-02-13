@@ -103,30 +103,6 @@ const mediaStories = [
     articleUrl:
       'https://sun-connect.org/frank-yiga-ceo-anuel-energy-ltd-about-collaboration-and-competition-between-entrepreneurs/#:~:text=Frank%20Neil%20Yiga%20is%20the,to%20the%20last%20mile%20customers.',
   },
-  {
-    title: 'Media Story Placeholder',
-    description: 'Story details to be added.',
-    imageSrc: '',
-    articleUrl: '',
-  },
-  {
-    title: 'Media Story Placeholder',
-    description: 'Story details to be added.',
-    imageSrc: '',
-    articleUrl: '',
-  },
-  {
-    title: 'Media Story Placeholder',
-    description: 'Story details to be added.',
-    imageSrc: '',
-    articleUrl: '',
-  },
-  {
-    title: 'Media Story Placeholder',
-    description: 'Story details to be added.',
-    imageSrc: '',
-    articleUrl: '',
-  },
 ];
 
 type Section03AboutProps = {
@@ -174,6 +150,51 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
               />
             </figure>
           </div>
+
+          <section className="about-team-rail" aria-label="Team portraits">
+            <div className="about-team-grid">
+              {teamMembers.map((member) => (
+                <a
+                  key={member.name}
+                  href={member.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="about-team-card-link"
+                  aria-label={`${member.name} LinkedIn profile`}
+                >
+                  <figure className="about-team-card">
+                    <div
+                      className="about-team-photo"
+                      role="img"
+                      aria-label={
+                        member.imageSrc ? `${member.name} portrait` : `${member.name} portrait placeholder`
+                      }
+                    >
+                      {member.imageSrc ? (
+                        <img
+                          src={member.imageSrc}
+                          alt={member.name}
+                          className="about-team-image"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span>{member.initial}</span>
+                      )}
+                    </div>
+                    <figcaption className="about-team-name-row">
+                      <span className="about-team-name">{member.name}</span>
+                      <img
+                        src="/images/in-logo/LI-In-Bug.png"
+                        alt="LinkedIn"
+                        className="about-team-linkedin-logo"
+                        loading="lazy"
+                      />
+                    </figcaption>
+                  </figure>
+                </a>
+              ))}
+            </div>
+          </section>
 
           <div className="about-intro-card">
             <div className="about-copy">
@@ -236,84 +257,28 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
             </div>
           </div>
 
-          <section className="about-media-section" aria-label="Media coverage">
-            <h3 className="about-subtitle">Media</h3>
-            <div className="about-media-grid">
-              {mediaStories.map((story, index) =>
-                story.articleUrl ? (
-                  <a
-                    key={`${story.title}-${index}`}
-                    href={story.articleUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="about-media-card about-media-card-link"
-                    aria-label={`${story.title} article`}
-                  >
-                    <div className="about-media-image-wrap">
-                      <img src={story.imageSrc} alt={story.title} className="about-media-image" loading="lazy" />
-                    </div>
-                    <div className="about-media-copy">
-                      <h4 className="about-media-title">{story.title}</h4>
-                      <p className="about-media-description">{story.description}</p>
-                    </div>
-                  </a>
-                ) : (
-                  <article key={`${story.title}-${index}`} className="about-media-card about-media-card-placeholder">
-                    <div className="about-media-image-wrap about-media-image-placeholder">
-                      <span>Coming Soon</span>
-                    </div>
-                    <div className="about-media-copy">
-                      <h4 className="about-media-title">{story.title}</h4>
-                      <p className="about-media-description">{story.description}</p>
-                    </div>
-                  </article>
-                ),
-              )}
-            </div>
-          </section>
         </div>
 
         <aside className="about-timeline-wrap" aria-label="Company story timeline">
-          <section className="about-team-rail" aria-label="Team portraits">
-            <div className="about-team-grid">
-              {teamMembers.map((member) => (
+          <section className="about-media-section" aria-label="Media coverage">
+            <h3 className="about-subtitle">Media</h3>
+            <div className="about-media-grid">
+              {mediaStories.map((story, index) => (
                 <a
-                  key={member.name}
-                  href={member.linkedinUrl}
+                  key={`${story.title}-${index}`}
+                  href={story.articleUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="about-team-card-link"
-                  aria-label={`${member.name} LinkedIn profile`}
+                  className="about-media-card about-media-card-link"
+                  aria-label={`${story.title} article`}
                 >
-                  <figure className="about-team-card">
-                    <div
-                      className="about-team-photo"
-                      role="img"
-                      aria-label={
-                        member.imageSrc ? `${member.name} portrait` : `${member.name} portrait placeholder`
-                      }
-                    >
-                      {member.imageSrc ? (
-                        <img
-                          src={member.imageSrc}
-                          alt={member.name}
-                          className="about-team-image"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <span>{member.initial}</span>
-                      )}
-                    </div>
-                    <figcaption className="about-team-name-row">
-                      <span className="about-team-name">{member.name}</span>
-                      <img
-                        src="/images/in-logo/LI-In-Bug.png"
-                        alt="LinkedIn"
-                        className="about-team-linkedin-logo"
-                        loading="lazy"
-                      />
-                    </figcaption>
-                  </figure>
+                  <div className="about-media-image-wrap">
+                    <img src={story.imageSrc} alt={story.title} className="about-media-image" loading="lazy" />
+                  </div>
+                  <div className="about-media-copy">
+                    <h4 className="about-media-title">{story.title}</h4>
+                    <p className="about-media-description">{story.description}</p>
+                  </div>
                 </a>
               ))}
             </div>
