@@ -29,7 +29,7 @@ export function Section04EndToEnd() {
       <div className="relative z-10 min-h-[calc(100svh-5rem)] flex flex-col justify-center items-end pr-6 lg:pr-[6vw] pl-6 lg:pl-[40vw]">
         {/* Headline */}
         <div ref={headlineRef} className="hero-headline-block mb-8 lg:mb-10 text-right">
-          <h2 className="headline-xl text-[clamp(32px,6vw,72px)]">
+          <h2 className="headline-xl hero-end-title text-[clamp(32px,6vw,72px)]">
             <span className="end-line block hero-headline-secondary">END-TO-END</span>
             <span className="end-line block hero-headline-secondary">ENERGY DELIVERY</span>
           </h2>

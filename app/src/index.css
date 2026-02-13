@@ -1495,6 +1495,10 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
 }
 
 @media (max-width: 640px) {
+  .hero-end-title {
+    font-size: clamp(25.6px, 4.8vw, 57.6px);
+  }
+
   .hero-headline-block {
     margin-top: -52vh;
   }
