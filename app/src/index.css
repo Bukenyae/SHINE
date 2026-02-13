@@ -1501,8 +1501,12 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
   }
 
   .service-chip {
-    font-size: 10px;
-    padding: 0.2rem 0.4rem;
+    font-size: 8px;
+    padding: 0.15rem 0.32rem;
+  }
+
+  .hero-scroll-cue {
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
   }
 }
 
