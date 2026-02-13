@@ -291,7 +291,7 @@ export function Section10Ecosystem() {
     const path = `${basePath}/${slug}`;
     window.history.pushState({}, '', path);
     window.dispatchEvent(new PopStateEvent('popstate'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   };
 
   return (

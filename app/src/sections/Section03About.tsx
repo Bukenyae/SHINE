@@ -245,7 +245,7 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
                   <span className="about-badge-label">People Impacted</span>
                 </span>
               </div>
-              <p className="about-description">
+              <p className="about-description about-mobile-team-size">
                 <strong>Where it all started</strong><br />
                 This all traces back to 2016, when we launched the Solar Village concept. At the
                 time, we saw that isolated donations were not moving the needle on poverty. We
