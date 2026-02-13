@@ -122,8 +122,8 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
         <div className="about-team-statement-copy">
           <p className="label-mono">About Us</p>
           <h2 className="about-title">
-            We believe every community should have the power to grow. That’s why we build smart,
-            solar-driven tools designed to help people thrive independently.
+            As lifelong builders and operators, we develop smart, solar-driven technology
+            designed to facilitate true independence.
           </h2>
           <h3 className="about-subtitle">Team</h3>
           <p className="about-description about-team-statement-description">
@@ -198,7 +198,7 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
 
           <div className="about-intro-card">
             <div className="about-copy">
-              <p className="about-description">
+              <p className="about-description about-mobile-team-size">
                 <strong>Our main product is SHINE:</strong><br />
                 A school operating system built to run a modern, AI-powered school when the power
                 grid is unreliable. By merging smart management software with built-in solar
@@ -213,7 +213,7 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
                   loading="lazy"
                 />
               </figure>
-              <p className="about-description">
+              <p className="about-description about-mobile-team-size">
                 <strong>Leaving no one behind</strong><br />
                 Of course, software only works if the lights are on. That is why we are still on
                 the ground every day, installing custom solar setups for the entire community. We

@@ -960,6 +960,12 @@
     font-weight: 400;
   }
 
+  .about-mobile-team-size {
+    font-size: clamp(1.6rem, 6.8vw, 2rem);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
   .about-partners-grid-right {
     grid-template-columns: 1fr 1fr;
   }
