@@ -1500,7 +1500,7 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
     bottom: 58px;
   }
 
-  .service-chip {
+  .hero-chip-row .service-chip {
     font-size: 4px;
     padding: 0.075rem 0.16rem;
   }
