@@ -702,6 +702,7 @@
 }
 
 .about-team-photo {
+  position: relative;
   min-height: 220px;
   border-radius: 18px;
   border: 1px solid rgba(244, 246, 250, 0.12);
@@ -753,10 +754,16 @@
 }
 
 .about-team-linkedin-logo {
-  width: 16px;
-  height: 16px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
-  display: inline-block;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
 }
 
 .about-timeline-head {
@@ -876,6 +883,10 @@
 [data-theme="light"] .about-team-photo span,
 [data-theme="light"] .about-team-name {
   color: #111111;
+}
+
+[data-theme="light"] .about-team-linkedin-logo {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
 }
 
 [data-theme="light"] .about-timeline-col {

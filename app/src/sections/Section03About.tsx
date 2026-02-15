@@ -188,6 +188,13 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
                         member.imageSrc ? `${member.name} portrait` : `${member.name} portrait placeholder`
                       }
                     >
+                      <img
+                        src="/images/in-logo/LI-In-Bug.png"
+                        alt=""
+                        aria-hidden="true"
+                        className="about-team-linkedin-logo"
+                        loading="lazy"
+                      />
                       {member.imageSrc ? (
                         <img
                           src={member.imageSrc}
@@ -201,12 +208,6 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
                     </div>
                     <figcaption className="about-team-name-row">
                       <span className="about-team-name">{member.name}</span>
-                      <img
-                        src="/images/in-logo/LI-In-Bug.png"
-                        alt="LinkedIn"
-                        className="about-team-linkedin-logo"
-                        loading="lazy"
-                      />
                     </figcaption>
                   </figure>
                 </a>
