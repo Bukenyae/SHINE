@@ -456,6 +456,16 @@
   width: 100%;
 }
 
+.about-link-barefoot {
+  color: #f97316;
+  font-weight: 700;
+}
+
+.about-link-innovex {
+  color: #2563eb;
+  font-weight: 700;
+}
+
 .about-team-statement-copy .about-subtitle {
   margin-top: 2.8rem;
 }

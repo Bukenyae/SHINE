@@ -130,12 +130,22 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
             With a combined 30 years of experience, we have seen the energy sector from every
             angle, from the research labs of CREEC and the global scale of the World Bank to the
             front lines of private sector energy companies like{' '}
-            <a href="https://www.barefootpower.com/" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.barefootpower.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="about-link-barefoot"
+            >
               Barefoot Power
             </a>
             . We have spent the last 10 years building Anuel Energy and investing in the
             region&apos;s most promising solar startups, such as{' '}
-            <a href="https://innovex.org/" target="_blank" rel="noreferrer">
+            <a
+              href="https://innovex.org/"
+              target="_blank"
+              rel="noreferrer"
+              className="about-link-innovex"
+            >
               Innovex
             </a>
             . This is not just work to us; it is a decade of learning exactly what breaks and

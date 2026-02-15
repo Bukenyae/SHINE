@@ -58,6 +58,16 @@ export function SiteFooter({ className }: SiteFooterProps) {
 
         <div className="flex flex-wrap gap-6">
           <a
+            href="/about"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo('/about');
+            }}
+            className="text-sm text-secondary hover:text-primary transition-colors"
+          >
+            About Us
+          </a>
+          <a
             href="#solutions"
             onClick={(e) => {
               e.preventDefault();
@@ -76,16 +86,6 @@ export function SiteFooter({ className }: SiteFooterProps) {
             className="text-sm text-secondary hover:text-primary transition-colors"
           >
             Ecosystem
-          </a>
-          <a
-            href="/about"
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo('/about');
-            }}
-            className="text-sm text-secondary hover:text-primary transition-colors"
-          >
-            About Us
           </a>
           <a
             href="#contact"
