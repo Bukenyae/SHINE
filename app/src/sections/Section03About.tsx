@@ -127,13 +127,21 @@ export function Section03About({ onBackHome }: Section03AboutProps) {
           </h2>
           <h3 className="about-subtitle">Team</h3>
           <p className="about-description about-team-statement-description">
-            With over 30 years of experience, we have seen the energy sector from every angle,
-            from the research labs of CREEC and the global scale of the World Bank to the front
-            lines of private sector energy. We have spent the last 10 years building Anuel Energy
-            and investing in the region&apos;s most promising solar startups. This is not just work
-            to us; it is a decade of learning exactly what breaks and what sticks. We have taken
-            those hard-earned insights and baked them into a combined AI and solar product stack
-            that is built for one thing: making communities truly resilient.
+            With a combined 30 years of experience, we have seen the energy sector from every
+            angle, from the research labs of CREEC and the global scale of the World Bank to the
+            front lines of private sector energy companies like{' '}
+            <a href="https://www.barefootpower.com/" target="_blank" rel="noreferrer">
+              Barefoot Power
+            </a>
+            . We have spent the last 10 years building Anuel Energy and investing in the
+            region&apos;s most promising solar startups, such as{' '}
+            <a href="https://innovex.org/" target="_blank" rel="noreferrer">
+              Innovex
+            </a>
+            . This is not just work to us; it is a decade of learning exactly what breaks and
+            what sticks. We have taken those hard-earned insights and baked them into a combined
+            AI and solar product stack that is built for one thing: making communities truly
+            resilient.
           </p>
         </div>
       </div>
