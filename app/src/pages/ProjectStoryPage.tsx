@@ -49,6 +49,11 @@ export function ProjectStoryPage({
         </a>
 
         <div className="project-story-main mb-16">
+          <span className="label-mono text-accent mb-4 block">{article.category}</span>
+          <h1 className="font-display font-semibold text-4xl lg:text-6xl text-primary leading-tight mb-6">
+            {article.title}
+          </h1>
+
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 mb-8">
             <div className="overflow-hidden rounded-2xl">
               <img
@@ -69,11 +74,6 @@ export function ProjectStoryPage({
               ))}
             </div>
           </div>
-
-          <span className="label-mono text-accent mb-4 block">{article.category}</span>
-          <h1 className="font-display font-semibold text-4xl lg:text-6xl text-primary leading-tight mb-6">
-            {article.title}
-          </h1>
 
           <div className="project-story-meta mb-8">
             <p className="text-secondary text-base lg:text-lg"><strong className="text-primary">Location:</strong> {article.location}</p>
