@@ -4,9 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { ThemeProvider } from './components/ThemeProvider';
 import { Navigation } from './components/Navigation';
-import { Section04EndToEnd } from './sections/Section04EndToEnd';
-import { Section02Solutions } from './sections/Section02Solutions';
-import { Section10Ecosystem } from './sections/Section10Ecosystem';
+import { Section10Ecosystem, type ModeKey } from './sections/Section10Ecosystem';
 import { Section09Contact } from './sections/Section09Contact';
 import { ProjectStoryPage } from './pages/ProjectStoryPage';
 import { AboutPage } from './pages/AboutPage';
@@ -23,10 +21,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 function AppContent() {
   const [pathname, setPathname] = useState(window.location.pathname);
+  const [homeMode, setHomeMode] = useState<ModeKey>('schools');
   const isProjectPage = pathname.startsWith('/projects/');
   const isSupplierPage = pathname.startsWith('/suppliers/');
   const isFinancierPage = pathname.startsWith('/financiers/');
   const isAboutPage = pathname === '/about';
+  const isHomePage = pathname === '/';
   const slug = useMemo(() => {
     if (isProjectPage) return pathname.replace('/projects/', '');
     if (isSupplierPage) return pathname.replace('/suppliers/', '');
@@ -34,28 +34,22 @@ function AppContent() {
     return '';
   }, [pathname, isProjectPage, isSupplierPage, isFinancierPage]);
 
-  const { article, collection, basePath, relatedTitle } = useMemo(() => {
+  const { article, basePath } = useMemo(() => {
     if (isSupplierPage) {
       return {
         article: slug ? getSupplierBySlug(slug) : undefined,
-        collection: supplierArticles,
         basePath: '/suppliers',
-        relatedTitle: 'More Supplier Stories',
       };
     }
     if (isFinancierPage) {
       return {
         article: slug ? getFinancierBySlug(slug) : undefined,
-        collection: financierArticles,
         basePath: '/financiers',
-        relatedTitle: 'More Financier Stories',
       };
     }
     return {
       article: slug ? getProjectBySlug(slug) : undefined,
-      collection: projectArticles,
       basePath: '/projects',
-      relatedTitle: 'More Project Stories',
     };
   }, [isSupplierPage, isFinancierPage, slug]);
 
@@ -151,27 +145,39 @@ function AppContent() {
       <div className="grain-overlay" />
 
       {/* Navigation */}
-      <Navigation />
+      <Navigation
+        isHomePage={isHomePage}
+        activeMode={homeMode}
+        onModeChange={(mode) => {
+          setHomeMode(mode);
+          if (!isHomePage) {
+            window.history.pushState({}, '', '/');
+            window.dispatchEvent(new PopStateEvent('popstate'));
+          }
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }}
+      />
 
       {/* Main Content */}
       <main className="relative">
         {isProjectPage || isSupplierPage || isFinancierPage ? (
           <ProjectStoryPage
-            article={article ?? collection[0]}
-            collection={collection}
-            relatedTitle={relatedTitle}
+            article={
+              article ??
+              (isSupplierPage
+                ? supplierArticles[0]
+                : isFinancierPage
+                  ? financierArticles[0]
+                  : projectArticles[0])
+            }
             basePath={basePath as '/projects' | '/suppliers' | '/financiers'}
           />
         ) : isAboutPage ? (
           <AboutPage />
         ) : (
           <>
-            {/* Pinned Sections (z-index stacking) */}
-            <Section04EndToEnd />
-            <Section02Solutions />
-
-            {/* Flowing Sections */}
-            <Section10Ecosystem />
+            {/* Home now prioritizes Airbnb-style ecosystem browsing */}
+            <Section10Ecosystem mode={homeMode} />
             <Section09Contact />
           </>
         )}

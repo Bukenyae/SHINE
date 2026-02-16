@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { Section04EndToEnd } from '@/sections/Section04EndToEnd';
+import { Section02Solutions } from '@/sections/Section02Solutions';
 import { Section03About } from '@/sections/Section03About';
 import { SiteFooter } from '@/components/SiteFooter';
 
@@ -19,6 +21,8 @@ export function AboutPage() {
 
   return (
     <div className="about-page-wrap">
+      <Section04EndToEnd />
+      <Section02Solutions />
       <Section03About onBackHome={goHome} />
       <div className="px-6 lg:px-[6vw] pb-16">
         <SiteFooter className="mt-12" />
