@@ -3,7 +3,21 @@ import { Menu, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ThemeToggle } from './ThemeToggle';
 
-export function Navigation() {
+type ListingMode = 'schools' | 'suppliers' | 'financiers';
+
+type NavigationProps = {
+  isHomePage: boolean;
+  activeMode: ListingMode;
+  onModeChange: (mode: ListingMode) => void;
+};
+
+const listingTabs: Array<{ label: string; mode: ListingMode }> = [
+  { label: 'Schools', mode: 'schools' },
+  { label: 'Energy Partners', mode: 'suppliers' },
+  { label: 'Financiers', mode: 'financiers' },
+];
+
+export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const mobileLinks = [
@@ -117,18 +131,8 @@ export function Navigation() {
             SHINE
           </a>
 
-          {/* Right - CTA + Theme Toggle */}
+          {/* Right - Theme Toggle */}
           <div className="hidden lg:flex items-center justify-end gap-6">
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('#contact');
-              }}
-              className="btn-primary"
-            >
-              Download App
-            </a>
             <ThemeToggle />
           </div>
 
@@ -205,6 +209,24 @@ export function Navigation() {
             </SheetContent>
           </Sheet>
         </div>
+        {isHomePage ? (
+          <div className="flex items-center justify-center gap-2 lg:gap-3 pb-3 lg:pb-4">
+            {listingTabs.map((tab) => (
+              <button
+                key={tab.mode}
+                type="button"
+                className={`px-1 lg:px-2 h-8 text-xs lg:text-sm font-medium transition-colors duration-200 ${
+                  activeMode === tab.mode
+                    ? 'text-primary'
+                    : 'text-secondary hover:text-primary'
+                }`}
+                onClick={() => onModeChange(tab.mode)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
       </div>
     </header>
   );
