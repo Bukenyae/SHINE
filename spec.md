@@ -189,6 +189,6 @@ Unlocks:
 - [x] Add local pipeline event capture for CTA and lead submissions.
 - [x] Replace story-page `More ... Stories` section with the shared site footer content.
 - [x] Enforce top-of-page landing when opening/navigating between story pages.
-- [ ] Expand card metadata model for richer Airbnb-style listing signals (status, scale, reliability).
+- [x] Expand card metadata model for richer Airbnb-style listing signals (status, scale, reliability).
 - [ ] Connect lead capture to backend API/agent pipeline (Estimator, Finance, Deployment, Maintenance).
 - [ ] Add sponsor flow (`Sponsor a Classroom's Power`) as Phase 2 conversion module.

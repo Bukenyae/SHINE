@@ -1,3 +1,17 @@
+export type ListingSignals = {
+  status: string;
+  scale: string;
+  reliability: string;
+};
+
+export type SchoolCardSignals = {
+  district: string;
+  buildings: number;
+  students: number;
+  solarTransitionPct: number;
+  hasInternet: boolean;
+};
+
 export type ProjectArticle = {
   id: number;
   slug: string;
@@ -9,6 +23,7 @@ export type ProjectArticle = {
   location: string;
   timeline: string;
   impact: string;
+  listingSignals?: ListingSignals;
   story: string[];
 };
 
@@ -625,4 +640,245 @@ export function getSupplierBySlug(slug: string) {
 
 export function getFinancierBySlug(slug: string) {
   return financierArticles.find((article) => article.slug === slug);
+}
+
+const listingSignalsBySlug: Record<string, ListingSignals> = {
+  // Schools
+  'st-kizito-primary-247-power': {
+    status: '24/7 reliable power',
+    scale: 'Classrooms, labs, staff housing',
+    reliability: 'Commissioned in 6 weeks',
+  },
+  'greenhill-academy-generator-reduction': {
+    status: 'Generator use reduced',
+    scale: 'Full campus hybrid coverage',
+    reliability: '68% fuel cost reduction',
+  },
+  'lakeview-secondary-maintenance-uptime': {
+    status: 'Preventive maintenance active',
+    scale: 'Campus-wide service contract',
+    reliability: 'Near-zero outages',
+  },
+  'mirembe-college-storage-uptime': {
+    status: 'Overnight continuity secured',
+    scale: 'Dorms and study halls',
+    reliability: 'Storage right-sized to load',
+  },
+  'kampala-heights-grid-tied-upgrade': {
+    status: 'Grid-tied system live',
+    scale: 'Rapid campus deployment',
+    reliability: '10-day rollout',
+  },
+  'northgate-school-remote-monitoring': {
+    status: 'Remote monitoring enabled',
+    scale: 'Automated incident workflows',
+    reliability: 'Faster response times',
+  },
+  'sunrise-academy-resilience-upgrade': {
+    status: 'Exam-season resilience live',
+    scale: 'Labs and classroom lighting',
+    reliability: 'Priority circuits protected',
+  },
+  'riverbend-prep-load-optimization': {
+    status: 'Load optimization active',
+    scale: 'Operational control rules',
+    reliability: 'Lower daily waste',
+  },
+  'hillside-secondary-campus-efficiency': {
+    status: 'Phased efficiency upgrade',
+    scale: 'Classrooms and boarding blocks',
+    reliability: 'Fewer campus disruptions',
+  },
+
+  // Suppliers
+  'aurora-solar-modules': {
+    status: 'Core module supplier',
+    scale: 'High-yield rooftop fleets',
+    reliability: 'Long-life warranty profile',
+  },
+  'gridline-inverters': {
+    status: 'Inverter partner active',
+    scale: 'Mixed-load campus profiles',
+    reliability: 'Stable conversion performance',
+  },
+  'lumin-battery-storage': {
+    status: 'Storage partner active',
+    scale: 'Modular overnight capacity',
+    reliability: 'Boarding-hour continuity',
+  },
+  'terra-mounting': {
+    status: 'Mounting systems deployed',
+    scale: 'Roof and structural installs',
+    reliability: 'Faster install cycles',
+  },
+  'flux-monitoring': {
+    status: 'Telemetry integration live',
+    scale: 'Dashboard-linked sensors',
+    reliability: 'Early fault detection',
+  },
+  'volt-safety': {
+    status: 'Safety stack standardized',
+    scale: 'Protection and grounding kits',
+    reliability: 'Lower maintenance risk',
+  },
+  'crest-cabling': {
+    status: 'Campus cabling partner',
+    scale: 'Multi-building infrastructure',
+    reliability: 'Clean serviceability paths',
+  },
+  'helios-lighting': {
+    status: 'Efficiency retrofit partner',
+    scale: 'LED upgrades at scale',
+    reliability: 'Extended battery runtime',
+  },
+  'anchor-structures': {
+    status: 'Carport structure partner',
+    scale: 'Shared-space generation assets',
+    reliability: 'Durable dual-use footprint',
+  },
+
+  // Financiers
+  'rise-credit-union': {
+    status: 'Term finance active',
+    scale: 'Mid-sized school upgrades',
+    reliability: 'Tuition-cycle aligned plans',
+  },
+  'equator-bank-green-lines': {
+    status: 'Green credit line partner',
+    scale: 'Institutional project portfolios',
+    reliability: 'Lower capital cost structures',
+  },
+  'harbor-microfinance': {
+    status: 'Flexible lending active',
+    scale: 'Rural and smaller schools',
+    reliability: 'Tailored repayment windows',
+  },
+  'summit-fintech': {
+    status: 'Digital approval partner',
+    scale: 'Rapid deployment financing',
+    reliability: 'Shorter approval timelines',
+  },
+  'lumen-lease': {
+    status: 'Leasing model active',
+    scale: 'Phased campus expansion',
+    reliability: 'Lower upfront burden',
+  },
+  'northline-capital': {
+    status: 'Project finance partner',
+    scale: 'Multi-campus rollouts',
+    reliability: 'Structured disbursement control',
+  },
+  'bluecrest-coop': {
+    status: 'Community lending active',
+    scale: 'Regional education groups',
+    reliability: 'Locally backed accountability',
+  },
+  'equinox-grants': {
+    status: 'Blended finance active',
+    scale: 'Off-grid institutions',
+    reliability: 'Grant + loan model stability',
+  },
+  'nova-pay': {
+    status: 'Pay-as-you-save live',
+    scale: 'Performance-linked portfolios',
+    reliability: 'Repayment tied to savings',
+  },
+};
+
+export function getListingSignals(article: ProjectArticle): ListingSignals {
+  const mapped = listingSignalsBySlug[article.slug];
+  if (mapped) return mapped;
+
+  if (article.category === 'Project') {
+    return {
+      status: 'School transition active',
+      scale: article.impact,
+      reliability: article.timeline,
+    };
+  }
+
+  if (article.category === 'Supplier') {
+    return {
+      status: 'Supplier partnership active',
+      scale: article.impact,
+      reliability: article.timeline,
+    };
+  }
+
+  return {
+    status: 'Finance partnership active',
+    scale: article.impact,
+    reliability: article.timeline,
+  };
+}
+
+const schoolCardSignalsBySlug: Record<string, SchoolCardSignals> = {
+  'st-kizito-primary-247-power': {
+    district: 'Kampala',
+    buildings: 10,
+    students: 820,
+    solarTransitionPct: 78,
+    hasInternet: true,
+  },
+  'greenhill-academy-generator-reduction': {
+    district: 'Wakiso',
+    buildings: 12,
+    students: 960,
+    solarTransitionPct: 70,
+    hasInternet: true,
+  },
+  'lakeview-secondary-maintenance-uptime': {
+    district: 'Mukono',
+    buildings: 9,
+    students: 700,
+    solarTransitionPct: 64,
+    hasInternet: true,
+  },
+  'mirembe-college-storage-uptime': {
+    district: 'Jinja',
+    buildings: 11,
+    students: 890,
+    solarTransitionPct: 72,
+    hasInternet: true,
+  },
+  'kampala-heights-grid-tied-upgrade': {
+    district: 'Kampala',
+    buildings: 8,
+    students: 640,
+    solarTransitionPct: 58,
+    hasInternet: true,
+  },
+  'northgate-school-remote-monitoring': {
+    district: 'Entebbe',
+    buildings: 7,
+    students: 510,
+    solarTransitionPct: 55,
+    hasInternet: true,
+  },
+  'sunrise-academy-resilience-upgrade': {
+    district: 'Kampala',
+    buildings: 9,
+    students: 760,
+    solarTransitionPct: 67,
+    hasInternet: false,
+  },
+  'riverbend-prep-load-optimization': {
+    district: 'Mukono',
+    buildings: 6,
+    students: 480,
+    solarTransitionPct: 49,
+    hasInternet: false,
+  },
+  'hillside-secondary-campus-efficiency': {
+    district: 'Wakiso',
+    buildings: 10,
+    students: 840,
+    solarTransitionPct: 62,
+    hasInternet: true,
+  },
+};
+
+export function getSchoolCardSignals(article: ProjectArticle): SchoolCardSignals | null {
+  if (article.category !== 'Project') return null;
+  return schoolCardSignalsBySlug[article.slug] ?? null;
 }
