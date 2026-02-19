@@ -3,7 +3,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 type Props = {
   icon: ReactNode;
-  value: string;
+  value?: string;
   tooltip: string;
   className?: string;
   label: string;
@@ -43,7 +43,7 @@ export function MetricBadgeTooltip({ icon, value, tooltip, className = '', label
           }}
         >
           {icon}
-          <span>{value}</span>
+          {value ? <span>{value}</span> : null}
         </span>
       </TooltipTrigger>
       <TooltipContent

@@ -29,6 +29,22 @@ export type PrimaryMetricBadge = {
   tooltip: string;
 };
 
+export type InfrastructureMetricTile = {
+  key:
+    | 'resilience'
+    | 'storage'
+    | 'savings'
+    | 'connectivity'
+    | 'monitoring'
+    | 'carbon'
+    | 'deployment'
+    | 'students';
+  title: string;
+  value: string;
+  tooltip: string;
+  primary: boolean;
+};
+
 export type ProjectArticle = {
   id: number;
   slug: string;
@@ -1048,4 +1064,126 @@ export function getPrimaryMetricBadges(article: ProjectArticle): PrimaryMetricBa
   }
 
   return badges.slice(0, 4);
+}
+
+export function getInfrastructureProfileTiles(article: ProjectArticle): InfrastructureMetricTile[] {
+  const metrics = article.metrics;
+  if (!metrics) return [];
+
+  const primaryBadges = getPrimaryMetricBadges(article);
+  const primaryTooltip = Object.fromEntries(
+    primaryBadges.map((item) => [item.key, item.tooltip])
+  ) as Partial<Record<PrimaryMetricBadge['key'], string>>;
+
+  const tiles: InfrastructureMetricTile[] = [];
+
+  if (typeof metrics.resilienceScore === 'number') {
+    tiles.push({
+      key: 'resilience',
+      title: 'Resilience Score',
+      value: `${metrics.resilienceScore}/100`,
+      tooltip:
+        primaryTooltip.resilience ?? `SHINE Resilience Score: ${metrics.resilienceScore}/100`,
+      primary: true,
+    });
+  }
+
+  if (typeof metrics.storage?.kwh === 'number' && typeof metrics.storage?.autonomyHours === 'number') {
+    const chemistry = metrics.storage.chemistry ? ` (${metrics.storage.chemistry})` : '';
+    tiles.push({
+      key: 'storage',
+      title: 'Storage / Backup Autonomy',
+      value: `${metrics.storage.kwh} kWh · ${metrics.storage.autonomyHours}h${chemistry}`,
+      tooltip:
+        primaryTooltip.storage ??
+        `${metrics.storage.kwh} kWh storage · ${metrics.storage.autonomyHours} hour autonomy`,
+      primary: true,
+    });
+  }
+
+  if (
+    typeof metrics.savings?.generatorReductionPct === 'number' ||
+    typeof metrics.savings?.annualDieselSavingsUsd === 'number'
+  ) {
+    const savingsValue =
+      typeof metrics.savings.generatorReductionPct === 'number' &&
+      typeof metrics.savings.annualDieselSavingsUsd === 'number'
+        ? `${metrics.savings.generatorReductionPct}% generator reduction · ${formatUsdCompact(metrics.savings.annualDieselSavingsUsd)} saved`
+        : typeof metrics.savings.generatorReductionPct === 'number'
+          ? `${metrics.savings.generatorReductionPct}% generator reduction`
+          : `${formatUsdCompact(metrics.savings.annualDieselSavingsUsd ?? 0)} diesel savings / year`;
+    tiles.push({
+      key: 'savings',
+      title: 'Savings / Generator Reduction',
+      value: savingsValue,
+      tooltip:
+        primaryTooltip.savings ??
+        `Saved ${formatUsdCompact(metrics.savings.annualDieselSavingsUsd ?? 0)} in diesel annually`,
+      primary: true,
+    });
+  }
+
+  if (metrics.connectivity) {
+    const provider = metrics.connectivity.provider ?? 'School network';
+    const uptime = typeof metrics.connectivity.uptimePct === 'number'
+      ? `${Math.round(metrics.connectivity.uptimePct)}% uptime`
+      : 'uptime not specified';
+
+    tiles.push({
+      key: 'connectivity',
+      title: 'Connectivity',
+      value: metrics.connectivity.enabled ? `${provider} · ${uptime}` : 'Offline / not enabled',
+      tooltip:
+        primaryTooltip.connectivity ??
+        (metrics.connectivity.enabled
+          ? `Connected via ${provider} · ${uptime}`
+          : 'Connectivity currently not enabled'),
+      primary: true,
+    });
+  }
+
+  if (metrics.monitoring) {
+    const featureText = metrics.monitoring.features?.slice(0, 2).join(' · ') ?? 'Monitoring active';
+    tiles.push({
+      key: 'monitoring',
+      title: 'Monitoring / AI Enabled',
+      value: metrics.monitoring.enabled ? featureText : 'Monitoring configured',
+      tooltip: metrics.monitoring.enabled
+        ? `Monitoring enabled: ${metrics.monitoring.features?.join(', ') ?? 'alerts and forecasting'}`
+        : 'Monitoring profile available',
+      primary: false,
+    });
+  }
+
+  if (typeof metrics.carbon?.tonsCo2AvoidedPerYear === 'number') {
+    tiles.push({
+      key: 'carbon',
+      title: 'Carbon Avoidance',
+      value: `${metrics.carbon.tonsCo2AvoidedPerYear} tons CO2 / year`,
+      tooltip: `Estimated carbon avoidance: ${metrics.carbon.tonsCo2AvoidedPerYear} tons CO2 per year`,
+      primary: false,
+    });
+  }
+
+  if (typeof metrics.deployment?.durationWeeks === 'number') {
+    tiles.push({
+      key: 'deployment',
+      title: 'Deployment Speed',
+      value: `${metrics.deployment.durationWeeks} weeks`,
+      tooltip: `Deployment completed in ${metrics.deployment.durationWeeks} weeks`,
+      primary: false,
+    });
+  }
+
+  if (typeof metrics.students?.count === 'number') {
+    tiles.push({
+      key: 'students',
+      title: 'Student Impact',
+      value: `${metrics.students.count} students impacted`,
+      tooltip: `${metrics.students.count} students are directly served by the system`,
+      primary: false,
+    });
+  }
+
+  return tiles;
 }
