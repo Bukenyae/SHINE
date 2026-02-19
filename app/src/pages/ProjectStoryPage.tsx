@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { type ProjectArticle } from '@/data/projects';
+import { ArrowLeft, Battery, DollarSign, Shield, Wifi } from 'lucide-react';
+import { getPrimaryMetricBadges, type ProjectArticle } from '@/data/projects';
 import { SiteFooter } from '@/components/SiteFooter';
+import { MetricBadgeTooltip } from '@/components/MetricBadgeTooltip';
 
 type Props = {
   article: ProjectArticle;
@@ -123,6 +124,28 @@ export function ProjectStoryPage({
                 <p className="label-mono text-accent mb-2">School authenticity</p>
                 <p className="text-primary font-semibold text-base lg:text-lg mb-1">{authenticityLabel}</p>
                 <p className="text-secondary text-sm">{article.location} · {article.timeline}</p>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  {getPrimaryMetricBadges(article).map((badge) => (
+                    <MetricBadgeTooltip
+                      key={`${article.slug}-story-${badge.key}`}
+                      label={`${badge.key} metric`}
+                      value={badge.value}
+                      tooltip={badge.tooltip}
+                      className="inline-flex items-center gap-1 rounded-full bg-[rgba(11,12,14,0.65)] px-2.5 py-1 text-[11px] font-semibold text-white outline-none ring-offset-0 focus-visible:ring-1 focus-visible:ring-white"
+                      icon={
+                        badge.key === 'resilience' ? (
+                          <Shield className="h-3.5 w-3.5" />
+                        ) : badge.key === 'storage' ? (
+                          <Battery className="h-3.5 w-3.5" />
+                        ) : badge.key === 'savings' ? (
+                          <DollarSign className="h-3.5 w-3.5" />
+                        ) : (
+                          <Wifi className="h-3.5 w-3.5" />
+                        )
+                      }
+                    />
+                  ))}
+                </div>
               </div>
             ) : null}
 

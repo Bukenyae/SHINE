@@ -26,6 +26,7 @@ export type SchoolMetrics = {
 export type PrimaryMetricBadge = {
   key: 'resilience' | 'storage' | 'savings' | 'connectivity';
   value: string;
+  tooltip: string;
 };
 
 export type ProjectArticle = {
@@ -1003,24 +1004,46 @@ export function getPrimaryMetricBadges(article: ProjectArticle): PrimaryMetricBa
   const badges: PrimaryMetricBadge[] = [];
 
   if (typeof metrics.resilienceScore === 'number') {
-    badges.push({ key: 'resilience', value: `${metrics.resilienceScore}` });
+    badges.push({
+      key: 'resilience',
+      value: `${metrics.resilienceScore}`,
+      tooltip: `SHINE Resilience Score: ${metrics.resilienceScore}/100`,
+    });
   }
 
   if (typeof metrics.storage?.autonomyHours === 'number') {
-    badges.push({ key: 'storage', value: `${metrics.storage.autonomyHours}h` });
+    const chemistry = metrics.storage.chemistry
+      ? `${metrics.storage.chemistry.toLowerCase()} `
+      : '';
+    badges.push({
+      key: 'storage',
+      value: `${metrics.storage.autonomyHours}h`,
+      tooltip: `${metrics.storage.kwh} kWh ${chemistry}storage · ${metrics.storage.autonomyHours} hour autonomy`,
+    });
   }
 
   if (typeof metrics.savings?.generatorReductionPct === 'number') {
-    badges.push({ key: 'savings', value: `${metrics.savings.generatorReductionPct}%` });
+    badges.push({
+      key: 'savings',
+      value: `${metrics.savings.generatorReductionPct}%`,
+      tooltip: `${metrics.savings.generatorReductionPct}% generator reduction`,
+    });
   } else if (typeof metrics.savings?.annualDieselSavingsUsd === 'number') {
-    badges.push({ key: 'savings', value: formatUsdCompact(metrics.savings.annualDieselSavingsUsd) });
+    badges.push({
+      key: 'savings',
+      value: formatUsdCompact(metrics.savings.annualDieselSavingsUsd),
+      tooltip: `Saved $${metrics.savings.annualDieselSavingsUsd.toLocaleString()} in diesel annually`,
+    });
   }
 
   if (metrics.connectivity?.enabled) {
     const uptime = metrics.connectivity.uptimePct;
+    const provider = metrics.connectivity.provider ?? 'network link';
+    const uptimeText = typeof uptime === 'number' ? `${Math.round(uptime)}% uptime` : 'uptime monitored';
     badges.push({
       key: 'connectivity',
       value: typeof uptime === 'number' ? `${Math.round(uptime)}%` : 'On',
+      tooltip: `Connected via ${provider} · ${uptimeText}`,
     });
   }
 
