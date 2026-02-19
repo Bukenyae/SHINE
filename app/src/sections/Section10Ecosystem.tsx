@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight, Wifi, WifiOff } from 'lucide-react';
+import { ArrowRight, Battery, ChevronLeft, ChevronRight, DollarSign, Shield, Wifi } from 'lucide-react';
 import {
   projectArticles,
   supplierArticles,
   financierArticles,
   getListingSignals,
+  getPrimaryMetricBadges,
   getSchoolCardSignals,
   type ProjectArticle,
 } from '@/data/projects';
@@ -206,29 +207,24 @@ export function Section10Ecosystem({ mode }: Props) {
                             className="card-image w-full h-full object-cover transition-transform duration-500"
                           />
                           {schoolSignals ? (
-                            <div className="absolute inset-x-3 top-3 flex items-center justify-between">
-                              <span className="rounded-full bg-[rgba(244,246,250,0.9)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#0B0C0E]">
-                                {schoolSignals.solarTransitionPct}% Solar Transition
-                              </span>
-                              <span
-                                className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[rgba(11,12,14,0.62)] text-white"
-                                aria-label={
-                                  schoolSignals.hasInternet
-                                    ? 'Internet access available'
-                                    : 'No internet access'
-                                }
-                                title={
-                                  schoolSignals.hasInternet
-                                    ? 'Internet access available'
-                                    : 'No internet access'
-                                }
-                              >
-                                {schoolSignals.hasInternet ? (
-                                  <Wifi className="h-4 w-4" />
-                                ) : (
-                                  <WifiOff className="h-4 w-4" />
-                                )}
-                              </span>
+                            <div className="absolute right-3 top-3 flex max-w-[86%] flex-wrap items-center justify-end gap-2">
+                              {getPrimaryMetricBadges(article).map((badge) => (
+                                <span
+                                  key={`${article.slug}-${badge.key}`}
+                                  className="inline-flex items-center gap-1 rounded-full bg-[rgba(11,12,14,0.68)] px-2.5 py-1 text-[11px] font-semibold text-white"
+                                >
+                                  {badge.key === 'resilience' ? (
+                                    <Shield className="h-3.5 w-3.5" />
+                                  ) : badge.key === 'storage' ? (
+                                    <Battery className="h-3.5 w-3.5" />
+                                  ) : badge.key === 'savings' ? (
+                                    <DollarSign className="h-3.5 w-3.5" />
+                                  ) : (
+                                    <Wifi className="h-3.5 w-3.5" />
+                                  )}
+                                  <span>{badge.value}</span>
+                                </span>
+                              ))}
                             </div>
                           ) : null}
                         </div>

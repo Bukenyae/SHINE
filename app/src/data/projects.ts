@@ -23,6 +23,11 @@ export type SchoolMetrics = {
   students?: { count?: number };
 };
 
+export type PrimaryMetricBadge = {
+  key: 'resilience' | 'storage' | 'savings' | 'connectivity';
+  value: string;
+};
+
 export type ProjectArticle = {
   id: number;
   slug: string;
@@ -983,4 +988,41 @@ const schoolCardSignalsBySlug: Record<string, SchoolCardSignals> = {
 export function getSchoolCardSignals(article: ProjectArticle): SchoolCardSignals | null {
   if (article.category !== 'Project') return null;
   return schoolCardSignalsBySlug[article.slug] ?? null;
+}
+
+function formatUsdCompact(value: number): string {
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}m`;
+  if (value >= 1_000) return `$${Math.round(value / 1_000)}k`;
+  return `$${Math.round(value)}`;
+}
+
+export function getPrimaryMetricBadges(article: ProjectArticle): PrimaryMetricBadge[] {
+  const metrics = article.metrics;
+  if (!metrics) return [];
+
+  const badges: PrimaryMetricBadge[] = [];
+
+  if (typeof metrics.resilienceScore === 'number') {
+    badges.push({ key: 'resilience', value: `${metrics.resilienceScore}` });
+  }
+
+  if (typeof metrics.storage?.autonomyHours === 'number') {
+    badges.push({ key: 'storage', value: `${metrics.storage.autonomyHours}h` });
+  }
+
+  if (typeof metrics.savings?.generatorReductionPct === 'number') {
+    badges.push({ key: 'savings', value: `${metrics.savings.generatorReductionPct}%` });
+  } else if (typeof metrics.savings?.annualDieselSavingsUsd === 'number') {
+    badges.push({ key: 'savings', value: formatUsdCompact(metrics.savings.annualDieselSavingsUsd) });
+  }
+
+  if (metrics.connectivity?.enabled) {
+    const uptime = metrics.connectivity.uptimePct;
+    badges.push({
+      key: 'connectivity',
+      value: typeof uptime === 'number' ? `${Math.round(uptime)}%` : 'On',
+    });
+  }
+
+  return badges.slice(0, 4);
 }
