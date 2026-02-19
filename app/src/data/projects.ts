@@ -12,6 +12,39 @@ export type SchoolCardSignals = {
   hasInternet: boolean;
 };
 
+export type SchoolMetrics = {
+  resilienceScore: number;
+  storage: { kwh: number; autonomyHours: number; chemistry?: string };
+  savings: { generatorReductionPct?: number; annualDieselSavingsUsd?: number };
+  connectivity: { enabled: boolean; provider?: string; uptimePct?: number };
+  monitoring?: { enabled: boolean; features?: string[] };
+  carbon?: { tonsCo2AvoidedPerYear?: number };
+  deployment?: { durationWeeks?: number };
+  students?: { count?: number };
+};
+
+export type PrimaryMetricBadge = {
+  key: 'resilience' | 'storage' | 'savings' | 'connectivity';
+  value: string;
+  tooltip: string;
+};
+
+export type InfrastructureMetricTile = {
+  key:
+    | 'resilience'
+    | 'storage'
+    | 'savings'
+    | 'connectivity'
+    | 'monitoring'
+    | 'carbon'
+    | 'deployment'
+    | 'students';
+  title: string;
+  value: string;
+  tooltip: string;
+  primary: boolean;
+};
+
 export type ProjectArticle = {
   id: number;
   slug: string;
@@ -24,6 +57,7 @@ export type ProjectArticle = {
   timeline: string;
   impact: string;
   listingSignals?: ListingSignals;
+  metrics?: SchoolMetrics;
   story: string[];
 };
 
@@ -44,6 +78,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Kampala, Uganda',
     timeline: '6 weeks',
     impact: 'Reliable power for classrooms, labs, and staff housing',
+    metrics: {
+      resilienceScore: 92,
+      storage: { kwh: 132, autonomyHours: 9, chemistry: 'Lithium' },
+      savings: { generatorReductionPct: 74, annualDieselSavingsUsd: 18200 },
+      connectivity: { enabled: true, provider: 'Starlink', uptimePct: 99 },
+      monitoring: { enabled: true, features: ['AI fault alerts', 'Load forecasting', 'Remote diagnostics'] },
+      carbon: { tonsCo2AvoidedPerYear: 49 },
+      deployment: { durationWeeks: 6 },
+      students: { count: 820 },
+    },
     story: [
       'St. Kizito Primary relied on inconsistent grid supply and diesel backup, which disrupted class schedules and increased operating cost. The school requested a system that could stabilize daily operations and reduce fuel spend.',
       'Shine executed a full site assessment, load mapping, and phased installation plan. The team sized generation and storage around peak school usage to keep classrooms and computer labs online during outages.',
@@ -66,6 +110,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Wakiso, Uganda',
     timeline: '8 weeks',
     impact: 'Generator fuel cost reduced by 68% in the first term',
+    metrics: {
+      resilienceScore: 90,
+      storage: { kwh: 148, autonomyHours: 8, chemistry: 'Lithium' },
+      savings: { generatorReductionPct: 68, annualDieselSavingsUsd: 21400 },
+      connectivity: { enabled: true, provider: 'MTN Fiber', uptimePct: 98 },
+      monitoring: { enabled: true, features: ['Threshold alerts', 'Usage trend AI', 'Monthly risk reports'] },
+      carbon: { tonsCo2AvoidedPerYear: 57 },
+      deployment: { durationWeeks: 8 },
+      students: { count: 960 },
+    },
     story: [
       'Greenhill Academy faced high generator costs due to frequent evening usage and poor load prioritization. The objective was to reduce diesel dependence while keeping boarding and security systems stable.',
       'Shine deployed a hybrid architecture with load controls that prioritize critical facilities first. The installation sequence minimized disruption to campus routines and exams.',
@@ -88,6 +142,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Mukono, Uganda',
     timeline: 'Ongoing service contract',
     impact: 'Outages reduced to near-zero through preventive service',
+    metrics: {
+      resilienceScore: 88,
+      storage: { kwh: 116, autonomyHours: 7, chemistry: 'Lithium' },
+      savings: { annualDieselSavingsUsd: 12600 },
+      connectivity: { enabled: true, provider: 'Airtel Business', uptimePct: 98 },
+      monitoring: { enabled: true, features: ['Predictive maintenance', 'AI anomaly detection', 'Incident routing'] },
+      carbon: { tonsCo2AvoidedPerYear: 38 },
+      deployment: { durationWeeks: 7 },
+      students: { count: 700 },
+    },
     story: [
       'Lakeview Secondary had a functioning system but inconsistent maintenance, causing avoidable interruptions. The school needed a disciplined support model rather than ad-hoc repairs.',
       'Shine implemented remote monitoring, alert thresholds, and scheduled preventive visits. Maintenance tasks were standardized and tracked through the same workflow used for installation projects.',
@@ -110,6 +174,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Jinja, Uganda',
     timeline: '5 weeks',
     impact: 'Overnight continuity for dorms and study halls',
+    metrics: {
+      resilienceScore: 89,
+      storage: { kwh: 156, autonomyHours: 10, chemistry: 'Lithium' },
+      savings: { generatorReductionPct: 61, annualDieselSavingsUsd: 16400 },
+      connectivity: { enabled: true, provider: 'Roke', uptimePct: 97 },
+      monitoring: { enabled: true, features: ['Battery health AI', 'Forecast models', 'Remote uptime board'] },
+      carbon: { tonsCo2AvoidedPerYear: 53 },
+      deployment: { durationWeeks: 5 },
+      students: { count: 890 },
+    },
     story: [
       'Mirembe College required stronger overnight reliability for boarding facilities and evening study sessions. Previous storage assumptions did not match real usage patterns.',
       'Shine re-sized battery capacity using measured load profiles and future growth assumptions. The design balanced resilience targets with practical cost control.',
@@ -132,6 +206,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Kampala, Uganda',
     timeline: '10 days',
     impact: 'Month-one savings with minimal campus disruption',
+    metrics: {
+      resilienceScore: 85,
+      storage: { kwh: 102, autonomyHours: 6, chemistry: 'Lithium' },
+      savings: { generatorReductionPct: 52, annualDieselSavingsUsd: 11900 },
+      connectivity: { enabled: true, provider: 'MTN Fiber', uptimePct: 98 },
+      monitoring: { enabled: true, features: ['Install QA telemetry', 'Live load map'] },
+      carbon: { tonsCo2AvoidedPerYear: 34 },
+      deployment: { durationWeeks: 2 },
+      students: { count: 640 },
+    },
     story: [
       'Kampala Heights wanted to modernize quickly without pausing normal operations. The schedule was tight, so execution quality and sequencing were critical.',
       'Shine planned installation windows around class and administration cycles. The team completed procurement, deployment, and commissioning in a compressed timeline.',
@@ -154,6 +238,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Entebbe, Uganda',
     timeline: '4 weeks + ongoing support',
     impact: 'Faster incident response and cleaner reporting workflows',
+    metrics: {
+      resilienceScore: 86,
+      storage: { kwh: 94, autonomyHours: 5, chemistry: 'Lithium' },
+      savings: { annualDieselSavingsUsd: 9800 },
+      connectivity: { enabled: true, provider: 'Airtel Business', uptimePct: 97 },
+      monitoring: { enabled: true, features: ['Auto incident alerts', 'Remote ticketing', 'Monthly reliability AI'] },
+      carbon: { tonsCo2AvoidedPerYear: 29 },
+      deployment: { durationWeeks: 4 },
+      students: { count: 510 },
+    },
     story: [
       'Northgate School needed faster issue detection and better reporting for leadership reviews. Manual checks made it difficult to identify faults early.',
       'Shine configured automated alerts and response workflows tied to local field teams. Data collection and reporting were standardized into a monthly cadence.',
@@ -176,6 +270,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Kampala, Uganda',
     timeline: '5 weeks',
     impact: 'Reliable exam-period power with fewer disruptions',
+    metrics: {
+      resilienceScore: 87,
+      storage: { kwh: 128, autonomyHours: 8, chemistry: 'Lithium' },
+      savings: { generatorReductionPct: 57, annualDieselSavingsUsd: 14200 },
+      connectivity: { enabled: false },
+      monitoring: { enabled: true, features: ['Critical load priority AI', 'Exam season risk alerts'] },
+      carbon: { tonsCo2AvoidedPerYear: 41 },
+      deployment: { durationWeeks: 5 },
+      students: { count: 760 },
+    },
     story: [
       'Sunrise Academy experienced repeated disruptions during evening revision and exam preparation. Leadership needed a power setup focused on continuity during critical periods rather than blanket overbuild.',
       'Shine mapped priority circuits and staged deployment to protect labs, classroom lighting, and admin systems first. The rollout was timed around school schedules to avoid interrupting lessons.',
@@ -198,6 +302,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Mukono, Uganda',
     timeline: '4 weeks',
     impact: 'Lower daily energy waste and clearer usage visibility',
+    metrics: {
+      resilienceScore: 82,
+      storage: { kwh: 84, autonomyHours: 5, chemistry: 'Lithium' },
+      savings: { generatorReductionPct: 44, annualDieselSavingsUsd: 8600 },
+      connectivity: { enabled: false },
+      monitoring: { enabled: true, features: ['Load baseline AI', 'Policy compliance alerts'] },
+      carbon: { tonsCo2AvoidedPerYear: 23 },
+      deployment: { durationWeeks: 4 },
+      students: { count: 480 },
+    },
     story: [
       'Riverbend Prep had sufficient generation but inconsistent load behavior that drove unnecessary consumption. The objective was to reduce waste without affecting teaching quality.',
       'Shine introduced usage baselines, priority schedules, and simple control policies for high-draw systems. The school team received a clear operating playbook tied to the app dashboard.',
@@ -220,6 +334,16 @@ export const projectArticles: ProjectArticle[] = [
     location: 'Wakiso, Uganda',
     timeline: '7 weeks',
     impact: 'Improved power quality and smoother campus operations',
+    metrics: {
+      resilienceScore: 88,
+      storage: { kwh: 138, autonomyHours: 7, chemistry: 'Lithium' },
+      savings: { generatorReductionPct: 59, annualDieselSavingsUsd: 17100 },
+      connectivity: { enabled: true, provider: 'Starlink', uptimePct: 99 },
+      monitoring: { enabled: true, features: ['Phased rollout intelligence', 'Power quality analytics'] },
+      carbon: { tonsCo2AvoidedPerYear: 46 },
+      deployment: { durationWeeks: 7 },
+      students: { count: 840 },
+    },
     story: [
       'Hillside Secondary needed better power quality across classrooms and boarding blocks but could not pause campus activity. The project required sequencing that worked with daily operations.',
       'Shine split implementation into practical phases with clear handover checkpoints. Critical loads were stabilized first, then expanded to broader campus systems.',
@@ -881,4 +1005,185 @@ const schoolCardSignalsBySlug: Record<string, SchoolCardSignals> = {
 export function getSchoolCardSignals(article: ProjectArticle): SchoolCardSignals | null {
   if (article.category !== 'Project') return null;
   return schoolCardSignalsBySlug[article.slug] ?? null;
+}
+
+function formatUsdCompact(value: number): string {
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}m`;
+  if (value >= 1_000) return `$${Math.round(value / 1_000)}k`;
+  return `$${Math.round(value)}`;
+}
+
+export function getPrimaryMetricBadges(article: ProjectArticle): PrimaryMetricBadge[] {
+  const metrics = article.metrics;
+  if (!metrics) return [];
+
+  const badges: PrimaryMetricBadge[] = [];
+
+  if (typeof metrics.resilienceScore === 'number') {
+    badges.push({
+      key: 'resilience',
+      value: `${metrics.resilienceScore}`,
+      tooltip: `SHINE Resilience Score: ${metrics.resilienceScore}/100`,
+    });
+  }
+
+  if (typeof metrics.storage?.autonomyHours === 'number') {
+    const chemistry = metrics.storage.chemistry
+      ? `${metrics.storage.chemistry.toLowerCase()} `
+      : '';
+    badges.push({
+      key: 'storage',
+      value: `${metrics.storage.autonomyHours}h`,
+      tooltip: `${metrics.storage.kwh} kWh ${chemistry}storage · ${metrics.storage.autonomyHours} hour autonomy`,
+    });
+  }
+
+  if (typeof metrics.savings?.generatorReductionPct === 'number') {
+    badges.push({
+      key: 'savings',
+      value: `${metrics.savings.generatorReductionPct}%`,
+      tooltip: `${metrics.savings.generatorReductionPct}% generator reduction`,
+    });
+  } else if (typeof metrics.savings?.annualDieselSavingsUsd === 'number') {
+    badges.push({
+      key: 'savings',
+      value: formatUsdCompact(metrics.savings.annualDieselSavingsUsd),
+      tooltip: `Saved $${metrics.savings.annualDieselSavingsUsd.toLocaleString()} in diesel annually`,
+    });
+  }
+
+  if (metrics.connectivity?.enabled) {
+    const uptime = metrics.connectivity.uptimePct;
+    const provider = metrics.connectivity.provider ?? 'network link';
+    const uptimeText = typeof uptime === 'number' ? `${Math.round(uptime)}% uptime` : 'uptime monitored';
+    badges.push({
+      key: 'connectivity',
+      value: typeof uptime === 'number' ? `${Math.round(uptime)}%` : 'On',
+      tooltip: `Connected via ${provider} · ${uptimeText}`,
+    });
+  }
+
+  return badges.slice(0, 4);
+}
+
+export function getInfrastructureProfileTiles(article: ProjectArticle): InfrastructureMetricTile[] {
+  const metrics = article.metrics;
+  if (!metrics) return [];
+
+  const primaryBadges = getPrimaryMetricBadges(article);
+  const primaryTooltip = Object.fromEntries(
+    primaryBadges.map((item) => [item.key, item.tooltip])
+  ) as Partial<Record<PrimaryMetricBadge['key'], string>>;
+
+  const tiles: InfrastructureMetricTile[] = [];
+
+  if (typeof metrics.resilienceScore === 'number') {
+    tiles.push({
+      key: 'resilience',
+      title: 'Resilience Score',
+      value: `${metrics.resilienceScore}/100`,
+      tooltip:
+        primaryTooltip.resilience ?? `SHINE Resilience Score: ${metrics.resilienceScore}/100`,
+      primary: true,
+    });
+  }
+
+  if (typeof metrics.storage?.kwh === 'number' && typeof metrics.storage?.autonomyHours === 'number') {
+    const chemistry = metrics.storage.chemistry ? ` (${metrics.storage.chemistry})` : '';
+    tiles.push({
+      key: 'storage',
+      title: 'Storage / Backup Autonomy',
+      value: `${metrics.storage.kwh} kWh · ${metrics.storage.autonomyHours}h${chemistry}`,
+      tooltip:
+        primaryTooltip.storage ??
+        `${metrics.storage.kwh} kWh storage · ${metrics.storage.autonomyHours} hour autonomy`,
+      primary: true,
+    });
+  }
+
+  if (
+    typeof metrics.savings?.generatorReductionPct === 'number' ||
+    typeof metrics.savings?.annualDieselSavingsUsd === 'number'
+  ) {
+    const savingsValue =
+      typeof metrics.savings.generatorReductionPct === 'number' &&
+      typeof metrics.savings.annualDieselSavingsUsd === 'number'
+        ? `${metrics.savings.generatorReductionPct}% generator reduction · ${formatUsdCompact(metrics.savings.annualDieselSavingsUsd)} saved`
+        : typeof metrics.savings.generatorReductionPct === 'number'
+          ? `${metrics.savings.generatorReductionPct}% generator reduction`
+          : `${formatUsdCompact(metrics.savings.annualDieselSavingsUsd ?? 0)} diesel savings / year`;
+    tiles.push({
+      key: 'savings',
+      title: 'Savings / Generator Reduction',
+      value: savingsValue,
+      tooltip:
+        primaryTooltip.savings ??
+        `Saved ${formatUsdCompact(metrics.savings.annualDieselSavingsUsd ?? 0)} in diesel annually`,
+      primary: true,
+    });
+  }
+
+  if (metrics.connectivity) {
+    const provider = metrics.connectivity.provider ?? 'School network';
+    const uptime = typeof metrics.connectivity.uptimePct === 'number'
+      ? `${Math.round(metrics.connectivity.uptimePct)}% uptime`
+      : 'uptime not specified';
+
+    tiles.push({
+      key: 'connectivity',
+      title: 'Connectivity',
+      value: metrics.connectivity.enabled ? `${provider} · ${uptime}` : 'Offline / not enabled',
+      tooltip:
+        primaryTooltip.connectivity ??
+        (metrics.connectivity.enabled
+          ? `Connected via ${provider} · ${uptime}`
+          : 'Connectivity currently not enabled'),
+      primary: true,
+    });
+  }
+
+  if (metrics.monitoring) {
+    const featureText = metrics.monitoring.features?.slice(0, 2).join(' · ') ?? 'Monitoring active';
+    tiles.push({
+      key: 'monitoring',
+      title: 'Monitoring / AI Enabled',
+      value: metrics.monitoring.enabled ? featureText : 'Monitoring configured',
+      tooltip: metrics.monitoring.enabled
+        ? `Monitoring enabled: ${metrics.monitoring.features?.join(', ') ?? 'alerts and forecasting'}`
+        : 'Monitoring profile available',
+      primary: false,
+    });
+  }
+
+  if (typeof metrics.carbon?.tonsCo2AvoidedPerYear === 'number') {
+    tiles.push({
+      key: 'carbon',
+      title: 'Carbon Avoidance',
+      value: `${metrics.carbon.tonsCo2AvoidedPerYear} tons CO2 / year`,
+      tooltip: `Estimated carbon avoidance: ${metrics.carbon.tonsCo2AvoidedPerYear} tons CO2 per year`,
+      primary: false,
+    });
+  }
+
+  if (typeof metrics.deployment?.durationWeeks === 'number') {
+    tiles.push({
+      key: 'deployment',
+      title: 'Deployment Speed',
+      value: `${metrics.deployment.durationWeeks} weeks`,
+      tooltip: `Deployment completed in ${metrics.deployment.durationWeeks} weeks`,
+      primary: false,
+    });
+  }
+
+  if (typeof metrics.students?.count === 'number') {
+    tiles.push({
+      key: 'students',
+      title: 'Student Impact',
+      value: `${metrics.students.count} students impacted`,
+      tooltip: `${metrics.students.count} students are directly served by the system`,
+      primary: false,
+    });
+  }
+
+  return tiles;
 }

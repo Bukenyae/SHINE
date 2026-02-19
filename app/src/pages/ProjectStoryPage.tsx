@@ -1,7 +1,24 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { type ProjectArticle } from '@/data/projects';
+import {
+  ArrowLeft,
+  Battery,
+  BarChart3,
+  Clock3,
+  Cpu,
+  DollarSign,
+  GraduationCap,
+  Leaf,
+  Shield,
+  Wifi,
+} from 'lucide-react';
+import {
+  getInfrastructureProfileTiles,
+  getPrimaryMetricBadges,
+  type InfrastructureMetricTile,
+  type ProjectArticle,
+} from '@/data/projects';
 import { SiteFooter } from '@/components/SiteFooter';
+import { MetricBadgeTooltip } from '@/components/MetricBadgeTooltip';
 
 type Props = {
   article: ProjectArticle;
@@ -58,6 +75,10 @@ export function ProjectStoryPage({
     if (article.timeline.toLowerCase().includes('ongoing')) return 'Verified Ongoing SHINE Deployment';
     return 'Verified SHINE School Transition';
   }, [article.timeline, isSchoolStory]);
+  const infrastructureTiles = useMemo(
+    () => (isSchoolStory ? getInfrastructureProfileTiles(article) : []),
+    [article, isSchoolStory]
+  );
 
   useEffect(() => {
     // Force top-of-page landing on every story entry/change.
@@ -92,6 +113,18 @@ export function ProjectStoryPage({
     });
   };
 
+  const metricIcon = (key: InfrastructureMetricTile['key']) => {
+    if (key === 'resilience') return <Shield className="h-4 w-4" />;
+    if (key === 'storage') return <Battery className="h-4 w-4" />;
+    if (key === 'savings') return <DollarSign className="h-4 w-4" />;
+    if (key === 'connectivity') return <Wifi className="h-4 w-4" />;
+    if (key === 'monitoring') return <Cpu className="h-4 w-4" />;
+    if (key === 'carbon') return <Leaf className="h-4 w-4" />;
+    if (key === 'deployment') return <Clock3 className="h-4 w-4" />;
+    if (key === 'students') return <GraduationCap className="h-4 w-4" />;
+    return <BarChart3 className="h-4 w-4" />;
+  };
+
   return (
     <section
       id="project-story"
@@ -123,6 +156,28 @@ export function ProjectStoryPage({
                 <p className="label-mono text-accent mb-2">School authenticity</p>
                 <p className="text-primary font-semibold text-base lg:text-lg mb-1">{authenticityLabel}</p>
                 <p className="text-secondary text-sm">{article.location} · {article.timeline}</p>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  {getPrimaryMetricBadges(article).map((badge) => (
+                    <MetricBadgeTooltip
+                      key={`${article.slug}-story-${badge.key}`}
+                      label={`${badge.key} metric`}
+                      value={badge.value}
+                      tooltip={badge.tooltip}
+                      className="inline-flex items-center gap-1 rounded-full bg-[rgba(11,12,14,0.65)] px-2.5 py-1 text-[11px] font-semibold text-white outline-none ring-offset-0 focus-visible:ring-1 focus-visible:ring-white"
+                      icon={
+                        badge.key === 'resilience' ? (
+                          <Shield className="h-3.5 w-3.5" />
+                        ) : badge.key === 'storage' ? (
+                          <Battery className="h-3.5 w-3.5" />
+                        ) : badge.key === 'savings' ? (
+                          <DollarSign className="h-3.5 w-3.5" />
+                        ) : (
+                          <Wifi className="h-3.5 w-3.5" />
+                        )
+                      }
+                    />
+                  ))}
+                </div>
               </div>
             ) : null}
 
@@ -160,6 +215,37 @@ export function ProjectStoryPage({
                 </p>
               ))}
             </div>
+
+            {isSchoolStory && infrastructureTiles.length > 0 ? (
+              <section className="mt-12">
+                <h2 className="font-display font-semibold text-3xl text-primary mb-5">
+                  Infrastructure Profile
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {infrastructureTiles.map((tile) => (
+                    <article
+                      key={`${article.slug}-tile-${tile.key}`}
+                      className={`rounded-2xl border border-[rgba(244,246,250,0.14)] bg-[rgba(244,246,250,0.03)] p-4 ${
+                        tile.primary ? 'md:min-h-[126px]' : ''
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-3 mb-2">
+                        <p className={`text-primary ${tile.primary ? 'font-semibold text-lg' : 'font-medium text-base'}`}>
+                          {tile.title}
+                        </p>
+                        <MetricBadgeTooltip
+                          label={`${tile.title} tooltip`}
+                          tooltip={tile.tooltip}
+                          icon={metricIcon(tile.key)}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[rgba(11,12,14,0.6)] text-white outline-none focus-visible:ring-1 focus-visible:ring-white"
+                        />
+                      </div>
+                      <p className={`text-secondary ${tile.primary ? 'text-base' : 'text-sm'}`}>{tile.value}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ) : null}
           </div>
 
           {isSchoolStory ? (
