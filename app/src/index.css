@@ -1848,6 +1848,29 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
   color: #F4F6FA;
 }
 
+.nav-mode-tab {
+  color: rgba(244, 246, 250, 0.84);
+}
+
+.nav-mode-tab:hover,
+.nav-mode-tab:focus-visible {
+  color: #f4f6fa;
+}
+
+.nav-mode-tab-active {
+  color: #f4f6fa;
+}
+
+[data-theme="light"] .nav-mode-tab {
+  color: rgba(17, 17, 17, 0.7);
+}
+
+[data-theme="light"] .nav-mode-tab:hover,
+[data-theme="light"] .nav-mode-tab:focus-visible,
+[data-theme="light"] .nav-mode-tab-active {
+  color: #111111;
+}
+
 .sch-shine-mark {
   display: inline-flex;
   align-items: center;

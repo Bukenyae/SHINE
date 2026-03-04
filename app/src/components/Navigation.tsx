@@ -218,10 +218,8 @@ export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationP
               <button
                 key={tab.mode}
                 type="button"
-                className={`px-1 lg:px-2 h-8 text-xs lg:text-sm font-medium transition-colors duration-200 ${
-                  activeMode === tab.mode
-                    ? 'text-primary'
-                    : 'text-secondary hover:text-primary'
+                className={`nav-mode-tab px-1 lg:px-2 h-8 text-xs lg:text-sm font-medium transition-colors duration-200 ${
+                  activeMode === tab.mode ? 'nav-mode-tab-active' : ''
                 }`}
                 onClick={() => onModeChange(tab.mode)}
               >
