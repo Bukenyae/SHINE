@@ -1848,6 +1848,59 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
   color: #F4F6FA;
 }
 
+.sch-shine-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 246, 250, 0.22);
+  background: rgba(11, 12, 14, 0.24);
+}
+
+.sch-shine-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0b0c0e;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.sch-shine-word {
+  font-size: clamp(1rem, 1.15vw, 1.26rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+[data-theme="light"] .sch-shine-mark {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+[data-theme="light"] .sch-shine-tag {
+  background: #111111;
+  color: #f4f6fa;
+}
+
+[data-theme="light"] .nav-scrolled .sch-shine-mark {
+  border-color: rgba(244, 246, 250, 0.26);
+  background: rgba(11, 12, 14, 0.22);
+}
+
+[data-theme="light"] .nav-scrolled .sch-shine-tag {
+  background: #f4f6fa;
+  color: #111111;
+}
+
 /* Footer logo */
 .footer-logo {
   width: clamp(46px, 6vw, 86px);
