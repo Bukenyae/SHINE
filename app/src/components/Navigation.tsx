@@ -118,7 +118,7 @@ export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationP
           {/* Center - Logo */}
           <a
             href="#"
-            className="nav-logo inline-flex items-center gap-2 font-display font-bold text-lg lg:text-xl text-primary justify-self-center"
+            className="nav-logo sch-shine-mark font-display text-primary justify-self-center"
             onClick={(e) => {
               e.preventDefault();
               if (window.location.pathname !== '/') {
@@ -128,10 +128,10 @@ export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationP
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            <span className="rounded-sm bg-white px-2 py-0.5 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-[#0B0C0E] lg:text-[0.66rem]">
+            <span className="sch-shine-tag" aria-label="School abbreviation">
               Sch
             </span>
-            <span className="tracking-[0.12em]">SHINE</span>
+            <span className="sch-shine-word">SHINE</span>
           </a>
 
           {/* Right - Theme Toggle */}
