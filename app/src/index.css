@@ -1871,6 +1871,17 @@ html:not([data-theme="light"]) .ecosystem-toggle.light.active {
   color: #111111;
 }
 
+.nav-scrolled .nav-mode-tab,
+.nav-scrolled .nav-mode-tab-active,
+.nav-scrolled .nav-mode-tab:hover,
+.nav-scrolled .nav-mode-tab:focus-visible,
+[data-theme="light"] .nav-scrolled .nav-mode-tab,
+[data-theme="light"] .nav-scrolled .nav-mode-tab-active,
+[data-theme="light"] .nav-scrolled .nav-mode-tab:hover,
+[data-theme="light"] .nav-scrolled .nav-mode-tab:focus-visible {
+  color: #f4f6fa;
+}
+
 .sch-shine-mark {
   display: inline-flex;
   align-items: center;
