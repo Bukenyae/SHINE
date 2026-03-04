@@ -118,7 +118,7 @@ export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationP
           {/* Center - Logo */}
           <a
             href="#"
-            className="nav-logo sch-shine-mark font-display text-primary justify-self-center"
+            className="nav-logo sch-shine-mark col-start-2 font-display text-primary justify-self-center"
             onClick={(e) => {
               e.preventDefault();
               if (window.location.pathname !== '/') {
@@ -151,7 +151,7 @@ export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationP
               }
             }}
           >
-            <SheetTrigger asChild className="lg:hidden">
+            <SheetTrigger asChild className="col-start-3 justify-self-end lg:hidden">
               <button
                 className={`p-2 transition-colors ${
                   isScrolled ? 'text-[#F4F6FA]' : 'text-primary'
