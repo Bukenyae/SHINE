@@ -64,12 +64,6 @@ const featureRows = [
   },
 ];
 
-const statCards = [
-  { value: '1', label: 'platform connecting school life' },
-  { value: '4', label: 'core layers: learning, payments, commerce, communication' },
-  { value: '100', label: 'schools in the initial ecosystem vision' },
-];
-
 const differentiators = [
   'One connected platform instead of many disconnected tools.',
   'AI-assisted learning that turns teaching materials into digestible study formats.',
@@ -86,9 +80,9 @@ export function SolutionsPage() {
     <div id="solutions" className="min-h-screen bg-white text-slate-950">
       <section className="relative overflow-hidden border-b border-slate-200">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.10),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.08),transparent_30%)]" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-32 lg:grid-cols-12 lg:px-8 lg:py-36">
-          <div className="lg:col-span-7">
-            <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm text-slate-600 shadow-sm">
+        <div className="relative mx-auto max-w-7xl px-6 py-32 lg:px-8 lg:py-36">
+          <div className="max-w-4xl">
+            <div className="text-sm font-medium text-slate-600">
               One place for learning, payments, shopping, and school operations
             </div>
             <h1 className="mt-6 max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
@@ -110,19 +104,6 @@ export function SolutionsPage() {
               >
                 See how it works
               </a>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.18)]">
-              <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-                {statCards.map((card) => (
-                  <div key={card.label} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                    <div className="text-3xl font-semibold tracking-tight text-slate-950">{card.value}</div>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">{card.label}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
