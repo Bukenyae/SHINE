@@ -3,10 +3,11 @@ import { Menu, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ThemeToggle } from './ThemeToggle';
 
-type ListingMode = 'schools' | 'suppliers' | 'financiers';
+export type ListingMode = 'schools' | 'suppliers' | 'financiers';
 
 type NavigationProps = {
   isHomePage: boolean;
+  isSolutionsPage: boolean;
   activeMode: ListingMode;
   onModeChange: (mode: ListingMode) => void;
 };
@@ -17,7 +18,12 @@ const listingTabs: Array<{ label: string; mode: ListingMode }> = [
   { label: 'Financiers', mode: 'financiers' },
 ];
 
-export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationProps) {
+export function Navigation({
+  isHomePage,
+  isSolutionsPage,
+  activeMode,
+  onModeChange,
+}: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const mobileLinks = [
@@ -80,6 +86,23 @@ export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationP
 
     // Let the sheet close first so scroll + pointer interactions stay responsive.
     setTimeout(performScroll, 120);
+  };
+
+  const goHome = (mode?: ListingMode) => {
+    if (mode) onModeChange(mode);
+    if (window.location.pathname !== '/') {
+      window.history.pushState({}, '', '/');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
+  const goToSolutions = () => {
+    if (window.location.pathname !== '/solutions') {
+      window.history.pushState({}, '', '/solutions');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   return (
@@ -212,16 +235,37 @@ export function Navigation({ isHomePage, activeMode, onModeChange }: NavigationP
             </SheetContent>
           </Sheet>
         </div>
-        {isHomePage ? (
+        {isHomePage || isSolutionsPage ? (
           <div className="flex items-center justify-center gap-2 lg:gap-3 pb-3 lg:pb-4">
-            {listingTabs.map((tab) => (
+            {listingTabs.slice(0, 1).map((tab) => (
               <button
                 key={tab.mode}
                 type="button"
                 className={`nav-mode-tab px-1 lg:px-2 h-8 text-xs lg:text-sm font-medium transition-colors duration-200 ${
-                  activeMode === tab.mode ? 'nav-mode-tab-active' : ''
+                  isHomePage && activeMode === tab.mode ? 'nav-mode-tab-active' : ''
                 }`}
-                onClick={() => onModeChange(tab.mode)}
+                onClick={() => goHome(tab.mode)}
+              >
+                {tab.label}
+              </button>
+            ))}
+            <button
+              type="button"
+              className={`nav-mode-tab px-1 lg:px-2 h-8 text-xs lg:text-sm font-medium transition-colors duration-200 ${
+                isSolutionsPage ? 'nav-mode-tab-active' : ''
+              }`}
+              onClick={goToSolutions}
+            >
+              Solutions
+            </button>
+            {listingTabs.slice(1).map((tab) => (
+              <button
+                key={tab.mode}
+                type="button"
+                className={`nav-mode-tab px-1 lg:px-2 h-8 text-xs lg:text-sm font-medium transition-colors duration-200 ${
+                  isHomePage && activeMode === tab.mode ? 'nav-mode-tab-active' : ''
+                }`}
+                onClick={() => goHome(tab.mode)}
               >
                 {tab.label}
               </button>

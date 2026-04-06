@@ -8,6 +8,7 @@ import { Section10Ecosystem, type ModeKey } from './sections/Section10Ecosystem'
 import { Section09Contact } from './sections/Section09Contact';
 import { ProjectStoryPage } from './pages/ProjectStoryPage';
 import { AboutPage } from './pages/AboutPage';
+import { SolutionsPage } from './pages/SolutionsPage';
 import {
   getProjectBySlug,
   getSupplierBySlug,
@@ -26,6 +27,7 @@ function AppContent() {
   const isSupplierPage = pathname.startsWith('/suppliers/');
   const isFinancierPage = pathname.startsWith('/financiers/');
   const isAboutPage = pathname === '/about';
+  const isSolutionsPage = pathname === '/solutions';
   const isHomePage = pathname === '/';
   const slug = useMemo(() => {
     if (isProjectPage) return pathname.replace('/projects/', '');
@@ -147,6 +149,7 @@ function AppContent() {
       {/* Navigation */}
       <Navigation
         isHomePage={isHomePage}
+        isSolutionsPage={isSolutionsPage}
         activeMode={homeMode}
         onModeChange={(mode) => {
           setHomeMode(mode);
@@ -174,6 +177,8 @@ function AppContent() {
           />
         ) : isAboutPage ? (
           <AboutPage />
+        ) : isSolutionsPage ? (
+          <SolutionsPage />
         ) : (
           <>
             {/* Home now prioritizes Airbnb-style ecosystem browsing */}
