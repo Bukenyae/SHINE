@@ -215,7 +215,7 @@ export function SolutionsPage() {
 
       <section>
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          <div className="max-w-3xl rounded-[2rem] border border-slate-200 bg-white p-10 shadow-[0_18px_45px_-32px_rgba(15,23,42,0.16)]">
+          <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">More than energy</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
               More than energy
@@ -229,7 +229,7 @@ export function SolutionsPage() {
 
       <section className="pb-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-10">
+          <div>
             <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Next step</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
