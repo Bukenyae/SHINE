@@ -139,15 +139,22 @@ export function SolutionsPage() {
 
           <div className="mt-14 grid gap-5 lg:grid-cols-4">
             {energyStages.map((stage, index) => (
-              <div key={stage.name} className="relative rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_12px_35px_-30px_rgba(15,23,42,0.18)]">
+              <div
+                key={stage.name}
+                className="group relative rounded-3xl bg-white p-6 shadow-[0_12px_35px_-30px_rgba(15,23,42,0.18)] transition duration-300 hover:-translate-y-1"
+              >
                 <div className="mb-5 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-950 text-sm font-semibold text-white">
                     {index + 1}
                   </div>
                   <div className="h-px flex-1 bg-slate-200" />
                 </div>
-                <h3 className="text-xl font-semibold tracking-tight text-slate-950">{stage.name}</h3>
-                <p className="mt-3 text-base leading-7 text-slate-600">{stage.text}</p>
+                <h3 className="text-xl font-semibold tracking-tight text-slate-950 transition-colors duration-300 group-hover:text-[#B87400]">
+                  {stage.name}
+                </h3>
+                <p className="mt-3 text-base leading-7 text-slate-600 transition-colors duration-300 group-hover:text-slate-700">
+                  {stage.text}
+                </p>
               </div>
             ))}
           </div>
