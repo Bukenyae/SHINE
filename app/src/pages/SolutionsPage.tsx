@@ -50,7 +50,7 @@ const paymentPoints = [
 ];
 
 const hoverCardClass =
-  'group rounded-3xl border border-slate-200 bg-white/70 p-8 shadow-[0_12px_40px_-30px_rgba(15,23,42,0.18)] transition duration-300 hover:-translate-y-1';
+  'group rounded-3xl bg-white/70 p-8 shadow-[0_12px_40px_-30px_rgba(15,23,42,0.18)] transition duration-300 hover:-translate-y-1';
 
 export function SolutionsPage() {
   useEffect(() => {
@@ -113,11 +113,15 @@ export function SolutionsPage() {
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
             {solarBenefits.map((item) => (
               <div key={item.title} className={hoverCardClass}>
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Solar benefit</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500 transition-colors duration-300 group-hover:text-[#D89216]">
+                  Solar benefit
+                </p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950 transition-colors duration-300 group-hover:text-[#B87400]">
                   {item.title}
                 </h3>
-                <p className="mt-4 text-base leading-7 text-slate-600">{item.text}</p>
+                <p className="mt-4 text-base leading-7 text-slate-600 transition-colors duration-300 group-hover:text-slate-700">
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
