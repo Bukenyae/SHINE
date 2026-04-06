@@ -203,9 +203,12 @@ export function SolutionsPage() {
 
             <div className="lg:col-span-5">
               <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_18px_45px_-32px_rgba(15,23,42,0.16)]">
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Current proof</p>
-                <div className="mt-3 text-6xl font-semibold tracking-tight text-slate-950">9</div>
-                <p className="mt-3 text-base leading-7 text-slate-600">school deployment stories currently highlighted across the site.</p>
+                <a
+                  href="/"
+                  className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+                >
+                  Working with 100 schools
+                </a>
               </div>
             </div>
           </div>
