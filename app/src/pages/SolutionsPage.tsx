@@ -91,7 +91,7 @@ export function SolutionsPage() {
             </h2>
             <div className="mt-8 space-y-4">
               {schoolProblems.map((point) => (
-                <div key={point} className="flex gap-4 rounded-2xl border border-slate-200 bg-white/75 px-5 py-4">
+                <div key={point} className="flex gap-4 rounded-2xl border border-slate-200 bg-transparent px-5 py-4">
                   <div className="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-[#F5B942]" />
                   <p className="text-base leading-7 text-slate-600">{point}</p>
                 </div>
