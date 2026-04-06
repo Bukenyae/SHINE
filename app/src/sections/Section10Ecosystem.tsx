@@ -1,59 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, Battery, ChevronLeft, ChevronRight, DollarSign, Shield, Wifi } from 'lucide-react';
 import {
-  projectArticles,
-  supplierArticles,
-  financierArticles,
   getListingSignals,
   getPrimaryMetricBadges,
   getSchoolCardSignals,
-  type ProjectArticle,
 } from '@/data/projects';
 import { MetricBadgeTooltip } from '@/components/MetricBadgeTooltip';
-
-export type ModeKey = 'schools' | 'suppliers' | 'financiers';
-
-type EcosystemMode = {
-  key: ModeKey;
-  label: string;
-  helper: string;
-  basePath: '/projects' | '/suppliers' | '/financiers';
-  articles: ProjectArticle[];
-};
-
-const modes: Record<ModeKey, EcosystemMode> = {
-  schools: {
-    key: 'schools',
-    label: 'Schools',
-    helper: 'Browse real school transitions to reliable solar power.',
-    basePath: '/projects',
-    articles: projectArticles,
-  },
-  suppliers: {
-    key: 'suppliers',
-    label: 'Energy Partners',
-    helper: 'Explore suppliers supporting SHINE deployments end-to-end.',
-    basePath: '/suppliers',
-    articles: supplierArticles,
-  },
-  financiers: {
-    key: 'financiers',
-    label: 'Financiers',
-    helper: 'See finance partners helping schools adopt solar infrastructure.',
-    basePath: '/financiers',
-    articles: financierArticles,
-  },
-};
-
-const railTitles: Record<ModeKey, string[]> = {
-  schools: [
-    'Popular school transitions',
-    'Reliable campuses in Uganda',
-    'Recently deployed systems',
-  ],
-  suppliers: ['Core equipment partners', 'Deployment infrastructure vendors', 'Monitoring and service partners'],
-  financiers: ['Funding partners by focus', 'Blended finance and leasing models', 'Capital partners expanding access'],
-};
+import {
+  ecosystemModes,
+  partnerViews,
+  railTitles,
+  type ModeKey,
+  type PartnerMode,
+  type StoryBasePath,
+} from '@/sections/ecosystemContent';
 
 const chunk = <T,>(items: T[], size: number) => {
   const result: T[][] = [];
@@ -73,12 +33,19 @@ type RowNavState = {
 };
 
 export function Section10Ecosystem({ mode }: Props) {
-  const activeMode = modes[mode];
-  const rows = useMemo(() => chunk(activeMode.articles, 4), [activeMode.articles]);
+  const [partnerMode, setPartnerMode] = useState<PartnerMode>('suppliers');
+  const activeMode = ecosystemModes[mode];
+  const activePartnerView = mode === 'partners' ? partnerViews[partnerMode] : null;
+  const activeArticles = activePartnerView?.articles ?? activeMode.articles;
+  const activeBasePath = activePartnerView?.basePath ?? activeMode.basePath;
+  const activeLabel = activePartnerView?.label ?? activeMode.label;
+  const activeHelper = activePartnerView?.helper ?? activeMode.helper;
+  const activeRailTitles = activePartnerView?.railTitles ?? railTitles[mode];
+  const rows = useMemo(() => chunk(activeArticles, 4), [activeArticles]);
   const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [rowNavState, setRowNavState] = useState<Record<number, RowNavState>>({});
 
-  const goToStory = (basePath: EcosystemMode['basePath'], slug: string) => {
+  const goToStory = (basePath: StoryBasePath, slug: string) => {
     const path = `${basePath}/${slug}`;
     window.history.pushState({}, '', path);
     window.dispatchEvent(new PopStateEvent('popstate'));
@@ -122,6 +89,7 @@ export function Section10Ecosystem({ mode }: Props) {
   };
 
   useEffect(() => {
+    rowRefs.current = [];
     rows.forEach((_, rowIndex) => updateRowScrollState(rowIndex));
 
     const onResize = () => {
@@ -140,16 +108,38 @@ export function Section10Ecosystem({ mode }: Props) {
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="mb-10 lg:mb-14">
-          <h2 className="contact-lead mb-3">{activeMode.label}</h2>
-          <p className="text-secondary text-base lg:text-lg max-w-2xl">{activeMode.helper}</p>
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <h2 className="contact-lead mb-3">{activeMode.label}</h2>
+              <p className="text-secondary max-w-2xl text-base lg:text-lg">{activeHelper}</p>
+            </div>
+            {mode === 'partners' ? (
+              <div className="inline-flex w-fit rounded-full border border-[rgba(244,246,250,0.16)] bg-[rgba(244,246,250,0.04)] p-1">
+                {(['suppliers', 'financiers'] as PartnerMode[]).map((view) => (
+                  <button
+                    key={view}
+                    type="button"
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                      partnerMode === view
+                        ? 'bg-[rgba(244,246,250,0.14)] text-primary'
+                        : 'text-secondary hover:text-primary'
+                    }`}
+                    onClick={() => setPartnerMode(view)}
+                  >
+                    {partnerViews[view].label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
 
         <div className="space-y-10 lg:space-y-14">
           {rows.map((row, rowIndex) => (
-            <div key={`${activeMode.key}-row-${rowIndex}`}>
+            <div key={`${mode}-${activeLabel}-row-${rowIndex}`}>
               <div className="flex items-end justify-between mb-5">
                 <h3 className="text-primary font-display font-semibold text-2xl lg:text-3xl">
-                  {railTitles[activeMode.key][rowIndex] ?? `${activeMode.label} listings`}
+                  {activeRailTitles[rowIndex] ?? `${activeLabel} listings`}
                 </h3>
                 <div className="hidden md:flex items-center gap-2">
                   <button
@@ -189,16 +179,16 @@ export function Section10Ecosystem({ mode }: Props) {
                 {row.map((article) => (
                   (() => {
                     const listingSignals = getListingSignals(article);
-                    const schoolSignals = activeMode.key === 'schools' ? getSchoolCardSignals(article) : null;
+                    const schoolSignals = mode === 'schools' ? getSchoolCardSignals(article) : null;
 
                     return (
                       <a
                         key={article.slug}
-                        href={`${activeMode.basePath}/${article.slug}`}
+                        href={`${activeBasePath}/${article.slug}`}
                         className="article-card group card-hover cursor-pointer min-w-[280px] max-w-[320px] flex-1"
                         onClick={(e) => {
                           e.preventDefault();
-                          goToStory(activeMode.basePath, article.slug);
+                          goToStory(activeBasePath, article.slug);
                         }}
                       >
                         <div className="relative overflow-hidden rounded-lg mb-5 aspect-[4/3]">

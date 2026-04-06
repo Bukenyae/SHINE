@@ -3,7 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ThemeToggle } from './ThemeToggle';
 
-export type ListingMode = 'schools' | 'suppliers' | 'financiers';
+export type ListingMode = 'schools' | 'partners';
 
 type NavigationProps = {
   isHomePage: boolean;
@@ -14,8 +14,7 @@ type NavigationProps = {
 
 const listingTabs: Array<{ label: string; mode: ListingMode }> = [
   { label: 'Schools', mode: 'schools' },
-  { label: 'Energy Partners', mode: 'suppliers' },
-  { label: 'Financiers', mode: 'financiers' },
+  { label: 'Partners', mode: 'partners' },
 ];
 
 export function Navigation({

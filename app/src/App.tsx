@@ -4,11 +4,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { ThemeProvider } from './components/ThemeProvider';
 import { Navigation } from './components/Navigation';
-import { Section10Ecosystem, type ModeKey } from './sections/Section10Ecosystem';
+import { Section10Ecosystem } from './sections/Section10Ecosystem';
 import { Section09Contact } from './sections/Section09Contact';
 import { ProjectStoryPage } from './pages/ProjectStoryPage';
 import { AboutPage } from './pages/AboutPage';
 import { SolutionsPage } from './pages/SolutionsPage';
+import { type ModeKey, type StoryBasePath } from './sections/ecosystemContent';
 import {
   getProjectBySlug,
   getSupplierBySlug,
@@ -173,7 +174,7 @@ function AppContent() {
                   ? financierArticles[0]
                   : projectArticles[0])
             }
-            basePath={basePath as '/projects' | '/suppliers' | '/financiers'}
+            basePath={basePath as StoryBasePath}
           />
         ) : isAboutPage ? (
           <AboutPage />
