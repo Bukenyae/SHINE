@@ -71,6 +71,9 @@ const differentiators = [
   'Designed to grow with school communities over time.',
 ];
 
+const hoverAccentCardClass =
+  'group rounded-3xl bg-transparent p-8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_-28px_rgba(245,185,66,0.58)]';
+
 export function SolutionsPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -123,12 +126,13 @@ export function SolutionsPage() {
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             {featureRows.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-3xl bg-transparent p-8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_-28px_rgba(15,23,42,0.28)]"
-              >
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{item.label}</p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">{item.title}</h3>
+              <div key={item.title} className={hoverAccentCardClass}>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500 transition-colors duration-300 group-hover:text-[#D89216]">
+                  {item.label}
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950 transition-colors duration-300 group-hover:text-[#B87400]">
+                  {item.title}
+                </h3>
                 <p className="mt-4 text-base leading-7 text-slate-600">{item.text}</p>
               </div>
             ))}
@@ -150,16 +154,17 @@ export function SolutionsPage() {
 
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {audienceCards.map((card) => (
-              <div
-                key={card.title}
-                className="rounded-3xl bg-transparent p-8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_-28px_rgba(15,23,42,0.28)]"
-              >
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{card.eyebrow}</p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">{card.title}</h3>
+              <div key={card.title} className={hoverAccentCardClass}>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500 transition-colors duration-300 group-hover:text-[#D89216]">
+                  {card.eyebrow}
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950 transition-colors duration-300 group-hover:text-[#B87400]">
+                  {card.title}
+                </h3>
                 <div className="mt-6 space-y-4">
                   {card.points.map((point) => (
                     <div key={point} className="flex gap-3">
-                      <div className="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-slate-950" />
+                      <div className="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-slate-950 transition-colors duration-300 group-hover:bg-[#F5B942]" />
                       <p className="text-base leading-7 text-slate-600">{point}</p>
                     </div>
                   ))}
