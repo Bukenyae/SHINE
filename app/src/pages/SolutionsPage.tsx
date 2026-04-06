@@ -123,7 +123,10 @@ export function SolutionsPage() {
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             {featureRows.map((item) => (
-              <div key={item.title} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+              <div
+                key={item.title}
+                className="rounded-3xl border border-slate-200/70 bg-transparent p-8 transition duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_18px_45px_-28px_rgba(15,23,42,0.28)]"
+              >
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{item.label}</p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">{item.title}</h3>
                 <p className="mt-4 text-base leading-7 text-slate-600">{item.text}</p>
