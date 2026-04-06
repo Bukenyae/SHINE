@@ -141,10 +141,10 @@ export function SolutionsPage() {
             {energyStages.map((stage, index) => (
               <div
                 key={stage.name}
-                className="group relative rounded-3xl bg-white p-6 shadow-[0_12px_35px_-30px_rgba(15,23,42,0.18)] transition duration-300 hover:-translate-y-1"
+                className="group relative rounded-3xl bg-transparent p-6 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_12px_35px_-30px_rgba(15,23,42,0.18)]"
               >
                 <div className="mb-5 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-950 text-sm font-semibold text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-950 text-sm font-semibold text-white transition-colors duration-300 group-hover:bg-[#F5B942] group-hover:text-slate-950">
                     {index + 1}
                   </div>
                   <div className="h-px flex-1 bg-slate-200" />
