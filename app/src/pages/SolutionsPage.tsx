@@ -150,7 +150,10 @@ export function SolutionsPage() {
 
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {audienceCards.map((card) => (
-              <div key={card.title} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <div
+                key={card.title}
+                className="rounded-3xl bg-transparent p-8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_-28px_rgba(15,23,42,0.28)]"
+              >
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{card.eyebrow}</p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">{card.title}</h3>
                 <div className="mt-6 space-y-4">
