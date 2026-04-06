@@ -213,7 +213,7 @@ export function SolutionsPage() {
         </div>
       </section>
 
-      <section>
+      <section className="border-t border-slate-200">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">More than energy</p>
