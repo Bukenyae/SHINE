@@ -114,29 +114,6 @@ export function Navigation({
     >
       <div className="w-full px-6 lg:px-10">
         <div className="grid grid-cols-3 items-center h-16 lg:h-20">
-          {/* Left - Brand Logo + Name */}
-          <a
-            href="/"
-            className="hidden lg:flex items-center"
-            onClick={(e) => {
-              e.preventDefault();
-              if (window.location.pathname !== '/') {
-                window.history.pushState({}, '', '/');
-                window.dispatchEvent(new PopStateEvent('popstate'));
-              }
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          >
-            <img
-              src="/images/Anuel%20logo%203.jpg"
-              alt="Anuel logo"
-              className="h-10 w-10 rounded-md object-cover"
-            />
-            <span className="nav-brand-text ml-3 font-display font-semibold text-base text-primary">
-              Anuel Energy
-            </span>
-          </a>
-
           {/* Center - Logo */}
           <a
             href="#"
