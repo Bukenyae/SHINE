@@ -188,7 +188,7 @@ export function SolutionsPage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-200 bg-slate-50/70">
+      <section className="bg-slate-50/70">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
