@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Menu } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 export type ListingMode = 'schools' | 'partners';
@@ -24,13 +23,6 @@ export function Navigation({
   onModeChange,
 }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const mobileLinks = [
-    { label: 'Solutions', href: '#solutions' },
-    { label: 'Ecosystem', href: '#ecosystem' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Contact', href: '#contact' },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,52 +32,6 @@ export function Navigation({
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const clearSheetScrollLocks = () => {
-    document.body.style.removeProperty('overflow');
-    document.body.style.removeProperty('padding-right');
-    document.body.style.removeProperty('pointer-events');
-    document.documentElement.style.removeProperty('overflow');
-    document.documentElement.style.removeProperty('padding-right');
-    document.documentElement.style.removeProperty('pointer-events');
-  };
-
-  useEffect(() => {
-    if (!isOpen) clearSheetScrollLocks();
-  }, [isOpen]);
-
-  const scrollToSection = (href: string) => {
-    setIsOpen(false);
-
-    const performScroll = () => {
-      if (!href.startsWith('#')) {
-        if (window.location.pathname !== href) {
-          window.history.pushState({}, '', href);
-          window.dispatchEvent(new PopStateEvent('popstate'));
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
-
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-
-      if (window.location.pathname === '/') return;
-
-      window.history.pushState({}, '', '/');
-      window.dispatchEvent(new PopStateEvent('popstate'));
-      setTimeout(() => {
-        const target = document.querySelector(href);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    };
-
-    // Let the sheet close first so scroll + pointer interactions stay responsive.
-    setTimeout(performScroll, 120);
-  };
 
   const goHome = (mode?: ListingMode) => {
     if (mode) onModeChange(mode);
@@ -138,78 +84,23 @@ export function Navigation({
             <ThemeToggle />
           </div>
 
-          {/* Mobile Menu */}
-          <Sheet
-            modal={false}
-            open={isOpen}
-            onOpenChange={(open) => {
-              setIsOpen(open);
-              if (!open) {
-                // Clear any stale lock after close animation tick.
-                window.setTimeout(clearSheetScrollLocks, 0);
+          {/* Mobile About */}
+          <button
+            type="button"
+            className={`col-start-3 justify-self-end p-2 transition-colors lg:hidden ${
+              isScrolled ? 'text-[#F4F6FA]' : 'text-primary'
+            }`}
+            aria-label="Go to About Us page"
+            onClick={() => {
+              if (window.location.pathname !== '/about') {
+                window.history.pushState({}, '', '/about');
+                window.dispatchEvent(new PopStateEvent('popstate'));
               }
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
             }}
           >
-            <SheetTrigger asChild className="col-start-3 justify-self-end lg:hidden">
-              <button
-                className={`p-2 transition-colors ${
-                  isScrolled ? 'text-[#F4F6FA]' : 'text-primary'
-                }`}
-                aria-label="Open navigation menu"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="mobile-sheet w-[62vw] min-w-[220px] max-w-[280px] sm:w-80 p-0 backdrop-blur-md border-l [&>[data-slot=sheet-close]]:hidden"
-            >
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6 border-b border-[rgba(244,246,250,0.1)]">
-                  <span className="mobile-menu-text font-display font-bold text-lg">
-                    Anuel<span className="text-accent">.</span>Energy
-                  </span>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="mobile-menu-text p-2"
-                    aria-label="Close navigation menu"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-                <nav className="flex flex-col p-6 gap-1">
-                  {mobileLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollToSection(link.href);
-                      }}
-                      className="mobile-menu-link rounded-md px-3 py-3 text-base font-medium transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
-                <div className="mt-auto p-6 space-y-4">
-                  <div className="flex items-center justify-center">
-                    <ThemeToggle />
-                  </div>
-                  <a
-                    href="#contact"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection('#contact');
-                    }}
-                    className="btn-primary w-full justify-center"
-                  >
-                    Download App
-                  </a>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+            <Menu className="h-6 w-6" />
+          </button>
         </div>
         {isHomePage || isSolutionsPage ? (
           <div className="flex items-center justify-center gap-2 lg:gap-3 pb-3 lg:pb-4">
