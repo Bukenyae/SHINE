@@ -72,7 +72,7 @@ const differentiators = [
 ];
 
 const hoverAccentCardClass =
-  'group rounded-3xl bg-transparent p-8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_-28px_rgba(245,185,66,0.58)]';
+  'group rounded-3xl bg-transparent p-8 transition duration-300 hover:-translate-y-1';
 
 export function SolutionsPage() {
   useEffect(() => {
